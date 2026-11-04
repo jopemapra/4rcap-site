@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Criativos print nativo</title>
+<!--
+  Criativos "print nativo" para os anúncios da landing tributária.
+  Uso: print-nativo.html?c=chat|planilha|prazo&f=feed|story
+  feed = 1080x1350 (4:5) · story = 1080x1920 (9:16)
+  Renderizar com Playwright em viewport do mesmo tamanho (ver render.js).
+-->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;overflow:hidden;font-family:Inter,"Liberation Sans",sans-serif;-webkit-font-smoothing:antialiased}
+body.feed{height:1350px}
+body.story{height:1920px;background:#15181d}
+.scr{width:1080px;height:1350px;position:relative;overflow:hidden}
+body.story .scr{position:absolute;left:76px;top:330px;width:1080px;height:1480px;border-radius:50px;box-shadow:0 30px 80px rgba(0,0,0,.45);transform:scale(.86);transform-origin:0 0}
+body.story .ch-body{justify-content:flex-end}
+.cap{position:absolute;left:70px;right:70px;top:120px;color:#fff;font:700 64px/1.08 Inter;letter-spacing:-1.5px;display:none}
+.cap small{display:block;font:500 34px/1.3 Inter;color:#b9c0c8;letter-spacing:0;margin-top:14px}
+.cta{position:absolute;left:50%;transform:translateX(-50%);bottom:150px;background:#fff;color:#0E1116;font:700 38px Inter;padding:26px 46px;border-radius:60px;display:none;white-space:nowrap}
+.cta b{color:#0F5C4D}
+body.story .cap,body.story .cta{display:block}
+.note-legal{position:absolute;left:0;right:0;bottom:70px;text-align:center;color:#8b939c;font:500 24px Inter;display:none}
+body.story .note-legal{display:block}
+.view{display:none;width:100%;height:100%}
+.view.on{display:flex;flex-direction:column}
+
+/* ---------- status bar (genérica) ---------- */
+.sb{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 44px;font:600 28px Inter;flex:none}
+.sb i{display:inline-block;width:46px;height:22px;border:2.5px solid currentColor;border-radius:6px;position:relative;margin-left:12px;vertical-align:-3px}
+.sb i:after{content:"";position:absolute;left:2px;top:2px;bottom:2px;width:70%;background:currentColor;border-radius:2px}
+
+/* ---------- 1. CHAT ---------- */
+#chat{background:#efe7dd}
+.ch-top{background:#f6f6f6;border-bottom:1px solid #ddd;flex:none}
+.ch-head{display:flex;align-items:center;gap:22px;padding:14px 34px 22px}
+.ch-head .bk{font:400 52px Inter;color:#0a7cff;margin-right:-6px}
+.av{width:78px;height:78px;border-radius:50%;background:#0F5C4D;color:#C8F169;display:flex;align-items:center;justify-content:center;font:800 28px Inter;letter-spacing:-.5px}
+.ch-head .nm{font:600 34px Inter;color:#111}
+.ch-head .st{font:400 25px Inter;color:#777;margin-top:3px}
+.ch-head .ic{margin-left:auto;display:flex;gap:40px;color:#0a7cff;font:400 40px Inter}
+.ch-body{flex:1;padding:26px 34px 10px;display:flex;flex-direction:column;gap:14px;overflow:hidden;
+  background-image:radial-gradient(rgba(0,0,0,.035) 2px,transparent 2px);background-size:34px 34px}
+.sys{align-self:center;background:#fdf3c6;color:#5d5434;font:500 23px/1.35 Inter;padding:10px 22px;border-radius:12px;text-align:center;max-width:80%}
+.day{align-self:center;background:#fff;color:#666;font:600 22px Inter;padding:8px 20px;border-radius:12px;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+.m{max-width:80%;padding:16px 22px 12px;border-radius:20px;font:400 33px/1.36 Inter;color:#111;position:relative;box-shadow:0 1px 1px rgba(0,0,0,.1)}
+.m .t{display:block;text-align:right;font:400 21px Inter;color:#888;margin-top:4px}
+.m .t .ck{color:#34b7f1;margin-left:6px;letter-spacing:-6px}
+.in{align-self:flex-start;background:#fff;border-top-left-radius:6px}
+.out{align-self:flex-end;background:#dcf8c6;border-top-right-radius:6px}
+.card{background:#f4f6f5;border-left:6px solid #0F5C4D;border-radius:10px;padding:16px 20px;margin:8px 0 6px}
+.card .k{font:500 24px Inter;color:#5a6660}
+.card .v{font:800 52px/1.1 Inter;color:#0E1116;letter-spacing:-1px;margin:6px 0 2px}
+.card .s{font:500 24px Inter;color:#5a6660}
+.ch-in{flex:none;background:#f6f6f6;border-top:1px solid #ddd;display:flex;align-items:center;gap:22px;padding:18px 30px 40px}
+.ch-in .bx{flex:1;height:72px;background:#fff;border:1px solid #ddd;border-radius:40px;padding:0 28px;display:flex;align-items:center;color:#aaa;font:400 30px Inter}
+.ch-in .pl{font:300 54px Inter;color:#0a7cff}
+.ch-in .mic{width:72px;height:72px;border-radius:50%;background:#0F5C4D;display:flex;align-items:center;justify-content:center}
+.typing{align-self:flex-start;background:#fff;border-radius:20px;border-top-left-radius:6px;padding:20px 26px;display:flex;gap:9px}
+.typing span{width:14px;height:14px;border-radius:50%;background:#b5b5b5}
+
+/* ---------- 2. PLANILHA ---------- */
+#planilha{background:#fff;color:#202124}
+.sh-bar{flex:none;display:flex;align-items:center;gap:20px;padding:18px 34px 12px}
+.sh-ico{width:52px;height:68px;background:#188038;border-radius:6px;position:relative}
+.sh-ico:after{content:"";position:absolute;left:11px;right:11px;top:22px;bottom:14px;border:3px solid #fff;border-radius:2px;background:linear-gradient(#fff,#fff) 50% 0/3px 100% no-repeat,linear-gradient(#fff,#fff) 0 50%/100% 3px no-repeat}
+.sh-name{font:400 32px Inter}
+.sh-menu{font:400 23px Inter;color:#444;margin-top:6px;word-spacing:14px}
+.sh-share{margin-left:auto;background:#c2e7ff;color:#001d35;font:600 25px Inter;padding:16px 28px;border-radius:40px}
+.sh-tools{flex:none;height:58px;margin:4px 24px 10px;background:#edf2fa;border-radius:30px;display:flex;align-items:center;gap:30px;padding:0 30px;font:500 23px Inter;color:#444}
+.sh-fx{flex:none;display:flex;border-top:1px solid #dadce0;border-bottom:1px solid #dadce0;font:400 25px 'JetBrains Mono',monospace;height:56px;align-items:center}
+.sh-fx .ref{width:130px;padding-left:20px;border-right:1px solid #dadce0;height:100%;display:flex;align-items:center;font-family:Inter}
+.sh-fx .f{padding-left:20px;color:#444}
+.sh-fx .f em{font-style:italic;color:#888;margin-right:14px;font-family:Inter}
+.grid{flex:1;position:relative;overflow:hidden}
+table{border-collapse:collapse;width:100%;table-layout:fixed;font:400 25px Inter}
+td,th{border:1px solid #e2e3e3;height:60px;padding:0 14px;white-space:nowrap;overflow:hidden}
+th{background:#f8f9fa;color:#5f6368;font:500 22px Inter;height:42px;text-align:center}
+td.rn{background:#f8f9fa;color:#5f6368;font:500 22px Inter;text-align:center;padding:0}
+td.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.hd td{font-weight:700;background:#f3f3f3}
+tr.tt td{font-weight:700;background:#fff8d6;border-top:2px solid #999}
+td.hl{background:#e6f4ea}
+td.sel{outline:4px solid #1a73e8;outline-offset:-3px;background:#fff8d6}
+tr.hid td{height:30px;background:repeating-linear-gradient(90deg,#f1f3f4 0 12px,#fff 12px 24px);color:#5f6368;font:500 20px Inter;text-align:center}
+.mark{position:absolute;pointer-events:none}
+.mark-t{position:absolute;color:#d93025;font:700 italic 40px/1.1 Inter;transform:rotate(-4deg)}
+.sh-tabs{flex:none;height:70px;border-top:1px solid #dadce0;background:#f8f9fa;display:flex;align-items:center;gap:6px;padding:0 24px;font:500 23px Inter;color:#444}
+.sh-tabs span{padding:14px 22px;border-radius:6px}
+.sh-tabs .on{background:#e1e9f7;color:#0b57d0}
+
+/* ---------- 3. PRAZO (app de notas) ---------- */
+#prazo{background:#fbfaf7;color:#1c1c1e}
+.nt-top{flex:none;display:flex;justify-content:space-between;align-items:center;padding:10px 40px 20px;color:#c79a1a;font:500 34px Inter}
+.nt{flex:1;padding:4px 64px 0;overflow:hidden}
+.nt h1{font:800 60px/1.1 Inter;letter-spacing:-1.2px;margin-bottom:10px}
+.nt .dt{font:400 25px Inter;color:#8e8e93;margin-bottom:34px}
+.nt p{font:400 34px/1.45 Inter;margin-bottom:24px}
+.li{display:flex;align-items:center;gap:24px;font:400 34px/1.3 Inter;padding:13px 0;border-bottom:1px solid #eeebe4}
+.bx2{width:44px;height:44px;border-radius:50%;border:3px solid #c7c7cc;flex:none;display:flex;align-items:center;justify-content:center}
+.li.x{color:#a5a5aa;text-decoration:line-through;text-decoration-color:#d93025;text-decoration-thickness:3px}
+.li.x .bx2{background:#c79a1a;border-color:#c79a1a}
+.li.x .bx2:after{content:"";width:16px;height:9px;border-left:4px solid #fff;border-bottom:4px solid #fff;transform:rotate(-45deg) translate(2px,-2px)}
+.li.now{font-weight:700}
+.li.now .tag{margin-left:auto;background:#ffe9e6;color:#c5221f;font:700 23px Inter;padding:8px 16px;border-radius:8px;text-decoration:none}
+.li .tag2{margin-left:auto;color:#8e8e93;font:500 24px Inter}
+.hlt{background:linear-gradient(transparent 58%,#ffe16a 58%)}
+.nt-bot{flex:none;display:flex;justify-content:space-around;padding:20px 0 44px;color:#c79a1a;font:500 40px Inter}
+</style>
+</head>
+<body>
+<div class="cap" id="cap"></div>
+
+<div class="scr">
+
+<!-- ================= 1. CHAT ================= -->
+<section class="view" id="chat">
+  <div class="ch-top">
+    <div class="sb"><span>9:41</span><span>●●●● &nbsp;5G<i></i></span></div>
+    <div class="ch-head">
+      <span class="bk">‹</span>
+      <div class="av">4R</div>
+      <div><div class="nm">4RCAP · Tributário</div><div class="st">online</div></div>
+      <div class="ic"><span>⌕</span><span>⋮</span></div>
+    </div>
+  </div>
+  <div class="ch-body">
+    <div class="sys">Conversa ilustrativa. Valores são estimativa, não garantia.</div>
+    <div class="day">HOJE</div>
+    <div class="m out">Tenho farmácia no Simples. Me falaram que eu posso ter pago PIS e COFINS duas vezes. Isso existe?<span class="t">10:12 <span class="ck">✓✓</span></span></div>
+    <div class="m in">Existe, sim. Medicamento e perfumaria já pagam PIS/COFINS na indústria. Se a receita não foi separada no PGDAS-D, o Simples cobra de novo.<span class="t">10:13</span></div>
+    <div class="m in">Com o faturamento que você passou, a simulação deu:
+      <div class="card"><div class="k">Estimativa · últimos 60 meses</div><div class="v">R$ 38 a 61 mil</div><div class="s">depende da revisão das notas</div></div>
+      <span class="t">10:13</span></div>
+    <div class="m out xtra">E se não tiver nada pra recuperar?<span class="t">10:14 <span class="ck">✓✓</span></span></div>
+    <div class="m in xtra">Aí você não paga nada. Os honorários são só um percentual do que voltar. E seu contador continua o mesmo.<span class="t">10:14</span></div>
+    <div class="m out xtra2">Manda o passo a passo 🙏<span class="t">10:15 <span class="ck">✓✓</span></span></div>
+    <div class="typing xtra2"><span></span><span></span><span></span></div>
+  </div>
+  <div class="ch-in"><span class="pl">+</span><div class="bx">Mensagem</div>
+    <div class="mic"><svg width="30" height="38" viewBox="0 0 30 38"><rect x="8" y="1" width="14" height="24" rx="7" fill="#C8F169"/><path d="M3 18a12 12 0 0 0 24 0M15 30v7" stroke="#C8F169" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg></div></div>
+</section>
+
+<!-- ================= 2. PLANILHA ================= -->
+<section class="view" id="planilha">
+  <div class="sb" style="color:#202124"><span>9:41</span><span>●●●● &nbsp;5G<i></i></span></div>
+  <div class="sh-bar">
+    <div class="sh-ico"></div>
+    <div><div class="sh-name">Revisão monofásico · farmácia (exemplo)</div><div class="sh-menu">Arquivo Editar Ver Inserir Formatar Dados</div></div>
+  </div>
+  <div class="sh-tools"><span>↶ ↷</span><span>100%</span><span>R$</span><span>%</span><span>.0</span><span><b>B</b></span><span><i>I</i></span></div>
+  <div class="sh-fx"><div class="ref">E64</div><div class="f"><em>fx</em>=SOMA(E3:E62)</div></div>
+  <div class="grid">
+    <table>
+      <colgroup><col style="width:62px"><col style="width:200px"><col><col><col><col style="width:250px"></colgroup>
+      <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+      <tr class="hd"><td class="rn">1</td><td>Mês</td><td class="n">Receita</td><td class="n">Monofásica</td><td class="n">Separada?</td><td class="n">Pago a mais</td></tr>
+      <tr><td class="rn">2</td><td colspan="5" style="color:#5f6368;font-size:21px">Simples Nacional · Anexo I · estimativa sobre notas de saída</td></tr>
+      <tr><td class="rn">3</td><td>dez/21</td><td class="n">172.400</td><td class="n hl">79.300</td><td class="n" style="color:#d93025">não</td><td class="n">918</td></tr>
+      <tr><td class="rn">4</td><td>jan/22</td><td class="n">158.900</td><td class="n hl">73.100</td><td class="n" style="color:#d93025">não</td><td class="n">846</td></tr>
+      <tr><td class="rn">5</td><td>fev/22</td><td class="n">161.250</td><td class="n hl">75.800</td><td class="n" style="color:#d93025">não</td><td class="n">877</td></tr>
+      <tr><td class="rn">6</td><td>mar/22</td><td class="n">184.700</td><td class="n hl">86.800</td><td class="n" style="color:#d93025">não</td><td class="n">1.005</td></tr>
+      <tr><td class="rn">7</td><td>abr/22</td><td class="n">176.030</td><td class="n hl">81.000</td><td class="n" style="color:#d93025">não</td><td class="n">937</td></tr>
+      <tr class="pl-x"><td class="rn">8</td><td>mai/22</td><td class="n">181.600</td><td class="n hl">83.500</td><td class="n" style="color:#d93025">não</td><td class="n">966</td></tr>
+      <tr class="pl-x"><td class="rn">9</td><td>jun/22</td><td class="n">169.880</td><td class="n hl">78.100</td><td class="n" style="color:#d93025">não</td><td class="n">904</td></tr>
+      <tr class="hid"><td class="rn"></td><td colspan="5">+ 51 linhas ocultas (jul/22 a set/26)</td></tr>
+      <tr><td class="rn">61</td><td>out/26</td><td class="n">203.150</td><td class="n hl">93.400</td><td class="n" style="color:#d93025">não</td><td class="n">1.081</td></tr>
+      <tr><td class="rn">62</td><td>nov/26</td><td class="n">198.420</td><td class="n hl">91.300</td><td class="n" style="color:#d93025">não</td><td class="n">1.057</td></tr>
+      <tr><td class="rn">63</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr class="tt"><td class="rn">64</td><td>Total</td><td class="n">10,9 mi</td><td class="n">5,0 mi</td><td class="n">60 meses</td><td class="n sel" id="tot">R$ 56.420</td></tr>
+      <tr><td class="rn">65</td><td colspan="5" style="color:#5f6368;font-size:21px">*estimativa. O valor final depende da revisão das notas com o contador.</td></tr>
+      <tr><td class="rn">66</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr class="pl-y"><td class="rn">67</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr class="pl-y"><td class="rn">68</td><td></td><td></td><td></td><td></td><td></td></tr>
+    </table>
+    <svg class="mark" id="ring" width="380" height="140" viewBox="0 0 380 140" preserveAspectRatio="none"><path d="M40 78 C 30 20, 330 8, 362 58 C 384 104, 120 136, 36 104 C 4 90, 22 52, 78 40" fill="none" stroke="#d93025" stroke-width="6" stroke-linecap="round"/></svg>
+    <div class="mark-t" id="note">pago 2x? 👀</div>
+  </div>
+  <div class="sh-tabs"><span>+</span><span>≡</span><span>Notas</span><span>PGDAS-D</span><span class="on">Resumo</span></div>
+</section>
+
+<!-- ================= 3. PRAZO (notas) ================= -->
+<section class="view" id="prazo">
+  <div class="sb"><span>9:41</span><span>●●●● &nbsp;5G<i></i></span></div>
+  <div class="nt-top"><span>‹ Notas</span><span>Feito</span></div>
+  <div class="nt">
+    <h1>Crédito de PIS/COFINS: prazo</h1>
+    <div class="dt">4 de novembro de 2026 · 09:41</div>
+    <p>Pedido de restituição vale para os <span class="hlt">últimos 5 anos</span> (art. 168 do CTN). Todo mês que passa, um mês sai da conta.</p>
+    <div class="li x"><span class="bx2"></span>set/2021<span class="tag2">prescreveu</span></div>
+    <div class="li x"><span class="bx2"></span>out/2021<span class="tag2">prescreveu</span></div>
+    <div class="li now"><span class="bx2"></span>nov/2021<span class="tag">vence este mês</span></div>
+    <div class="li"><span class="bx2"></span>dez/2021</div>
+    <div class="li"><span class="bx2"></span>jan/2022</div>
+    <div class="li st-x"><span class="bx2"></span>fev/2022</div>
+    <div class="li st-x"><span class="bx2"></span>mar/2022</div>
+    <div class="li">… até out/2026<span class="tag2">60 meses ainda no prazo</span></div>
+    <p style="margin-top:34px">CBS entra no lugar de PIS/COFINS em 2027. Organizar os créditos antigos <b>antes</b>.</p>
+    <p class="st-x">Fazer a simulação da 4RCAP (3 perguntas, 30 s) e mandar pro contador.</p>
+  </div>
+  <div class="nt-bot"><span>☑</span><span>◫</span><span>✎</span></div>
+</section>
+
+</div>
+<div class="cta" id="cta"></div>
+<div class="note-legal" id="leg">Imagem ilustrativa · valores estimados, sem garantia de resultado · 4RCAP</div>
+
+<script>
+const q=new URLSearchParams(location.search),c=q.get('c')||'chat',f=q.get('f')||'feed';
+document.body.className=f;
+document.getElementById(c).classList.add('on');
+const CAP={
+  chat:['Farmácia no Simples?','Essa dúvida aparece toda semana.'],
+  planilha:['A coluna que quase ninguém confere.','Receita monofásica não separada no PGDAS-D.'],
+  prazo:['Todo mês, um mês de crédito prescreve.','O prazo é de 5 anos. O relógio já está rodando.']
+};
+document.getElementById('cap').innerHTML=CAP[c][0]+'<small>'+CAP[c][1]+'</small>';
+document.getElementById('cta').innerHTML='Simule em 30 s <b>↑</b>';
+// No feed, esconde itens extras para caber; no story mostra tudo.
+if(f==='feed'){
+  document.querySelectorAll('.xtra2').forEach(e=>e.remove());
+}else{
+}
+// posiciona o círculo vermelho no total
+function mark(){
+  const t=document.getElementById('tot');if(!t||c!=='planilha')return;
+  const g=t.closest('.grid').getBoundingClientRect(),r=t.getBoundingClientRect();
+  const ring=document.getElementById('ring'),note=document.getElementById('note');
+  ring.style.width=(r.width+40)+'px';ring.style.height=(r.height+60)+'px';ring.style.left=(r.left-g.left-30)+'px';ring.style.top=(r.top-g.top-30)+'px';
+  note.style.left=(r.left-g.left-250)+'px';note.style.top=(r.top-g.top+(f==='feed'?110:120))+'px';
+}
+mark();
+</script>
+</body>
+</html>
