@@ -47,3 +47,6 @@ create view public.leads_recentes with (security_invoker = true) as
   select criado_em, protocolo, faixa, score_total, nome, telefone, email, area, valor, score, origem, utm->>'utm_source' as utm_source, status
   from public.leads order by (faixa='A') desc, criado_em desc;
 revoke all on public.leads_recentes from anon;
+
+-- LP tributária (nov/2026): e-mail passou a ser opcional no formulário. Sem isto, leads sem e-mail são recusados pelo banco.
+alter table public.leads alter column email drop not null;

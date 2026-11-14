@@ -40,3 +40,15 @@ Cole o Google Tag Manager no `<head>`. Os eventos já são enviados ao `dataLaye
 - `#crivo-leilao`, `#crivo-trib`, `#crivo-emp`, `#crivo-inv` abrem o crivo de qualificação direto, ótimos para anúncios
 - `?utm_campaign=` com leilao, tributario, empresa ou invest muda o título da página para o tema do anúncio
 - `#admin` abre o painel local de leads
+
+## 6. Antes de ligar os anúncios da lp-tributario (checklist)
+Rode na pasta do site e só publique quando os itens estiverem resolvidos:
+
+    grep -rn "a confirmar" lp-tributario.html privacidade.html lp.js
+    grep -n "5500000000000" lp.js privacidade.html
+
+- `LP_CONFIG.whatsapp` em `lp.js` e o link de contato em `privacidade.html`: número real.
+- Rodapé da `lp-tributario.html` e "Controlador" em `privacidade.html`: razão social, cidade/UF e e-mail (Decreto 7.962/2013 e LGPD art. 41).
+- `privacidade.html`: confirmar fornecedores, prazo de guarda (24 meses) e transferência internacional.
+- `supabase.sql`: rodar a migração que torna o e-mail opcional.
+- Domínio do `canonical` e do `og:image`.

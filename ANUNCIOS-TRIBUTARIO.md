@@ -27,14 +27,14 @@ Posicionamentos: Feed e Stories do Instagram, Feed do Facebook.
 **Texto principal:**
 > Farmácia, perfumaria, autopeças ou distribuidora de bebidas no Simples Nacional?
 >
-> Esses produtos já pagam PIS e COFINS na indústria. Se as receitas não foram separadas no PGDAS-D, a empresa pode ter pago esses tributos de novo, por até 5 anos.
+> Esses produtos já pagam PIS e COFINS na indústria. Se as receitas não foram separadas no PGDAS-D, o DAS pode ter cobrado PIS e COFINS a mais, e dá para revisar os últimos 5 anos.
 >
 > Veja uma estimativa em 30 segundos. Seu contador continua o mesmo.
 
-**Título:** PIS e COFINS pagos em dobro?
+**Título:** PIS e COFINS a mais no DAS?
 **Descrição:** Revisão dos últimos 60 meses
 **Botão:** Simular
-**Criativo sugerido:** carrossel de 3 cards: (1) "Farmácia, autopeças ou bebidas?" (2) "Você pode ter pago PIS/COFINS duas vezes." (3) "Simule em 30 segundos" + logotipo.
+**Criativo sugerido:** carrossel de 3 cards: (1) "Farmácia, autopeças ou bebidas?" (2) "Seu DAS pode ter cobrado PIS/COFINS a mais." (3) "Simule em 30 segundos" + logotipo.
 
 ### Versão C: "prazo" (urgência real, sem exagero)
 **Texto principal:**
@@ -89,7 +89,7 @@ Fixe o título 1 na posição 1 (opção "fixar" do Google).
 ### Descrições (máximo de 90 caracteres; todas conferidas)
 1. Revisamos PIS, COFINS, ICMS e INSS dos últimos 5 anos. Simule seu crédito em 30 segundos.
 2. Sem custo inicial: honorários só sobre o valor efetivamente recuperado. Faça a simulação.
-3. Empresa do Simples com produtos monofásicos? Você pode ter pago PIS e COFINS em dobro.
+3. Empresa do Simples com produtos monofásicos? Seu DAS pode ter cobrado PIS e COFINS a mais.
 4. Diagnóstico com seu contador, teses consolidadas e relatório por escrito. Comece grátis.
 
 ### Palavras-chave (correspondência de frase, entre aspas)
