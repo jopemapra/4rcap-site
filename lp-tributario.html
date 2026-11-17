@@ -1,20 +1,33 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Recuperação tributária | 4RCAP</title>
+<title>PIS/Cofins monofásico no Simples: simule a recuperação | 4RCAP</title>
 <meta name="description" content="Simule em 30 segundos quanto sua empresa pode ter pago a mais de PIS e Cofins nos últimos 5 anos. Foco no Simples com produtos monofásicos. Sem custo inicial.">
 <link rel="canonical" href="https://4rcap.com.br/lp-tributario.html"><!-- [a confirmar] domínio definitivo -->
 <meta property="og:type" content="website"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="4RCAP">
+<meta property="og:url" content="https://4rcap.com.br/lp-tributario.html"><!-- [a confirmar] mesmo domínio do canonical -->
 <meta property="og:title" content="Pode ter imposto a mais no seu DAS">
 <meta property="og:description" content="Simule em 30 segundos quanto sua empresa pode ter pago a mais de PIS e Cofins nos últimos 5 anos. Foco no Simples com produtos monofásicos. Sem custo inicial.">
 <meta property="og:image" content="https://4rcap.com.br/marca/og-tributario.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%230F5C4D'/%3E%3Ctext x='7' y='44' font-family='Arial' font-weight='700' font-size='30' fill='%23F6F4EF'%3E4R%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;600&family=Inter+Tight:wght@600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="lp2.css">
+<link rel="preload" href="fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="lp2.css">
 <style>
 /* estilos só desta página (lp2.css é compartilhado com as outras LPs) */
 .top .hl{font-size:.9rem}
-.rr{display:none;font-family:var(--mono);font-size:.74rem;color:var(--gr);margin-top:12px;line-height:1.45}
+.rr{display:none;font-family:var(--sans);font-size:.85rem;color:var(--ink);margin-top:12px;line-height:1.45}
+.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+button.lk{background:none;border:0;padding:0;font:inherit;font-size:.88rem;color:var(--ac);text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.bk{margin:0 0 10px;text-align:left}
+.pre{font-size:.9rem;margin:2px 0 4px;padding:10px 12px;background:#EEF4F1;border:1px solid var(--line);border-radius:4px}
+.pre .lk{display:inline-block;min-height:32px;padding:6px 8px;margin:-6px -8px -6px 0;font-size:.9rem;vertical-align:baseline}
 #q_seg button{font-size:.88rem;line-height:1.25}
+#q_seg button[data-v="outro"]{grid-column:1/-1}
+.err:empty{min-height:0;margin:0}
+.qo-m{font-size:.85rem;color:var(--gr);margin-top:8px;line-height:1.45}
+.teaser.nofig .v,.teaser.nofig .sr{display:none}.teaser.nofig .micro{font-size:.92rem;color:var(--ink);margin:0!important}
+.res .out{font-size:1rem;margin:6px 0 4px}
+.res .rg~.row span{flex:0 1 auto;min-width:0}
+#waGo{height:auto;min-height:52px;padding:12px 16px;text-align:center;line-height:1.3}
+.res .row.tx{flex-wrap:wrap;gap:2px 16px}.res .row.tx b{flex:1 1 100%;text-align:left;font-family:var(--sans);font-weight:400;font-size:.88rem}
 .opt{font-weight:400;color:var(--mut)}
 .ck{display:flex;gap:10px;font-weight:400;align-items:flex-start;font-size:.8rem;line-height:1.4;margin:12px 0 0}
 .ck input{width:18px;height:18px;margin-top:1px;flex:none}.ck a{color:var(--ac)}
@@ -39,25 +52,31 @@
 .pq .body{color:var(--gr)}
 .note{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);font-size:.88rem;color:var(--gr)}.note b{color:var(--ink)}
 .note summary{cursor:pointer;list-style:none}.note summary::-webkit-details-marker{display:none}.note summary::after{content:" +";font-family:var(--mono);color:var(--ac)}.note[open] summary::after{content:" −"}.note p{margin-top:8px}
+.repd{min-width:0}
+.repd>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px;border:1px solid var(--line);border-radius:6px;padding:14px 16px;font-weight:600;font-size:.95rem;background:var(--paper)}
+.repd>summary::-webkit-details-marker{display:none}.repd>summary::after{content:"+";font-family:var(--mono);font-weight:400;color:var(--ac)}.repd[open]>summary::after{content:"−"}
+.repd[open]>summary{margin-bottom:10px}
+@media(min-width:901px){.repd[open]>summary{display:none}}
 .rep{border:1px solid var(--line);border-radius:6px;background:var(--paper);padding:20px;min-width:0}
 .rep-tag{display:inline-block;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;background:var(--ink);color:var(--paper);padding:3px 8px;border-radius:3px}
-.rep-h{font-family:var(--disp);font-weight:600;font-size:1.05rem;margin:16px 0 10px}
+.rep-h{font-family:var(--disp);font-weight:600;font-size:1.05rem;margin:16px 0 4px}
+.rep-in{font-size:.85rem;color:var(--gr);margin-bottom:10px}
 .rep-t{overflow-x:auto}
 .rep table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:.78rem}
 .rep th,.rep td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:bottom}
 .rep th{font-weight:500;color:var(--gr);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
-.rep td:last-child{color:var(--ac)}
+.rep td:nth-child(3){color:var(--ac)}
+.rep .m{display:none}
 .rep-al{list-style:none;font-size:.9rem}.rep-al li{display:grid;grid-template-columns:20px 1fr;padding:6px 0;border-bottom:1px solid var(--line)}
 .rep-al li::before{content:"!";font-family:var(--mono);color:var(--ac);font-weight:500}
 .rep-foot{font-family:var(--mono);font-size:.72rem;color:var(--mut);margin-top:14px;line-height:1.45}
 /* como funciona */
-.steps.s5{grid-template-columns:repeat(5,1fr)}
-.steps.s5 div{padding:24px 22px 0 0;position:relative}
-.steps.s5 div::before{content:"";position:absolute;top:-5px;left:0;width:9px;height:9px;border-radius:50%;background:var(--sig)}
-.steps.s5 div.pd::before{background:#9BA0A8}
-.steps.s5 h3{font-size:1.2rem;margin:10px 0 8px}.steps.s5 p{font-size:.93rem}
-.steps.s5 .n{margin-right:10px}
-@media(min-width:901px){.steps.s5 .tg{display:table;margin-top:8px}}
+.steps.s3 div{padding:24px 28px 0 0;position:relative}
+.steps.s3 div::before{content:"";position:absolute;top:-5px;left:0;width:9px;height:9px;border-radius:50%;background:var(--sig)}
+.steps.s3 div.pd::before{background:#9BA0A8}
+.steps.s3 h3{font-size:1.2rem;margin:10px 0 8px}.steps.s3 p{font-size:.93rem}
+.steps.s3 .n{margin-right:10px}
+@media(min-width:901px){.steps.s3 .tg{display:table;margin-top:8px}}
 .tg{display:inline-block;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--sig);margin-top:6px}
 .pd .tg{color:#9BA0A8;border:1px solid #4A4F57;border-radius:3px;padding:1px 6px}
 .pd .n{color:#9BA0A8!important}
@@ -69,6 +88,7 @@
 .cmp td{padding:16px 12px 16px 0;border-bottom:1px solid var(--line);vertical-align:top;font-size:.95rem}
 .cmp td:first-child{font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--gr);width:22%}
 .cmp td:nth-child(3){color:var(--mut)}
+.cmp-av{display:none}
 .btn.au{width:auto;display:inline-flex;padding:0 28px;margin-top:28px}
 /* faq */
 .fq-g{font-family:var(--mono);font-weight:500;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ac);margin:30px 0 4px}
@@ -82,132 +102,178 @@
 .qt{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gr);margin-bottom:8px}
 footer p+p{margin-top:8px}footer a{color:var(--gr)}
 @media(max-width:900px){
- .rr{display:block}
- section{padding:48px 0}
- .hero{padding-bottom:40px}.hero h1{font-size:2.1rem}
+ .top{height:56px}
+ .rr{display:block;margin-top:8px}
+ section{padding:44px 0}
+ .hero{padding-top:12px;padding-bottom:36px;gap:16px}.hero h1{font-size:1.85rem;margin-top:6px}
+ .hero #h_sub.mob{display:block;font-size:.88rem;line-height:1.4;margin-top:6px}
+ .ang-C .hero h1{font-size:1.5rem}.ang-C #h_eb{font-size:.66rem;letter-spacing:0}
+ .box{padding:14px 16px 16px}.prog{margin-bottom:10px}.box h3{font-size:1.2rem}.bs{margin:1px 0 4px;font-size:.85rem}
+ .box label,.box .lbl{margin:9px 0 5px}
+ .seg{gap:6px}.seg button{min-height:44px;padding:5px 6px}
+ #q_reg{display:flex;flex-wrap:nowrap}.box input:not([type=checkbox]){height:46px}#q_reg button{flex:1 1 0;min-width:0;padding:6px 4px;white-space:nowrap}#q_reg button[data-v="pres"]{flex-grow:1.4}#q_reg .lg{display:none}
+ #q_seg{grid-template-columns:repeat(3,1fr)}#q_seg button{font-size:.84rem;padding:6px 4px}#q_seg button[data-v="merc"]{grid-column:span 2}#q_seg button[data-v="outro"]{grid-column:auto}
+ #toLead,#leadF .btn{margin-top:12px}
+ .ck{margin-top:10px}
  .pq .body{font-size:.95rem}.pq .h2{margin-bottom:18px}
- .rep{padding:12px}.rep table{font-size:.68rem}.rep th,.rep td{padding:6px 2px}.rep th{text-transform:none;letter-spacing:0;font-size:.64rem}
- .steps.s5 p{font-size:.9rem}.steps.s5 div{padding-bottom:20px}
+ .ang-B .pq .body{display:none}
+ .rep{padding:14px}
+ .rep table,.rep tbody{display:block}.rep thead{display:none}
+ .rep tr{display:grid;grid-template-columns:auto 1fr;column-gap:6px;row-gap:2px;padding:9px 0;border-bottom:1px solid var(--line)}
+ .rep td{border:0;padding:0;font-size:.82rem;font-variant-numeric:tabular-nums}
+ .rep td:nth-child(1){grid-area:1/1}.rep td:nth-child(4){grid-area:1/2;color:var(--gr)}.rep td:nth-child(4)::before{content:"· "}
+ .rep td:nth-child(2){grid-area:2/1;font-family:var(--sans)}.rep td:nth-child(3){grid-area:2/2;font-family:var(--sans)}.rep td:nth-child(3)::before{content:"→ ";color:var(--mut)}
+ .rep .m{display:inline}
+ .steps.s3 p{font-size:.9rem}
  .lead{font-size:.95rem}
- .faq details{padding:16px 0}.faq summary{font-size:1.05rem}
+ .faq details{padding:15px 0}.faq summary{font-size:1.05rem}
  .facts.f3{display:none}
- .blk2{margin-top:48px;padding-top:40px}
- .fin-s{padding:40px 0}
- .pq{grid-template-columns:1fr;gap:32px}
- .steps.s5{grid-template-columns:1fr;border-top:none;border-left:1px solid rgba(255,255,255,.2);margin-left:4px}
- .steps.s5 div{padding:0 0 26px 22px}.steps.s5 div::before{top:5px;left:-5px}
- .steps.s5 div:last-child{padding-bottom:0}
- .steps.s5 h3{margin:6px 0 4px}
+ .blk2{margin-top:40px;padding-top:36px}
+ .fin-s{display:none}
+ .pq{grid-template-columns:1fr;gap:24px}
+ .steps.s3{grid-template-columns:1fr;border-top:none;border-left:1px solid rgba(255,255,255,.2);margin-left:4px}
+ .steps.s3 div{padding:0 0 24px 22px}.steps.s3 div::before{top:5px;left:-5px}
+ .steps.s3 div:last-child{padding-bottom:0}
+ .steps.s3 h3{margin:6px 0 4px}
  .cmp thead{display:none}.cmp,.cmp tbody,.cmp tr,.cmp td{display:block;width:100%!important}
- .cmp tr{padding:14px 0;border-bottom:1px solid var(--line)}.cmp td{border:none;padding:3px 0}
- .cmp td:first-child{margin-bottom:4px;color:var(--ac)}
- .cmp td[data-label]::before{content:attr(data-label);display:block;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mut)}
+ .cmp tr{padding:12px 0;border-bottom:1px solid var(--line)}.cmp td{border:none;padding:2px 0}
+ .cmp td:first-child{margin-bottom:2px;color:var(--ac)}
+ .cmp td[data-label="Convém evitar"]{display:none}
  .cmp tr td[data-label="4RCAP"]::before{display:none}
+ .cmp-av{display:block;font-size:.9rem;color:var(--gr);margin-top:14px}
  .lead{margin-top:-12px}
- .h2{margin-bottom:28px}
-}
+ .h2{margin-bottom:24px}
+}@media(max-width:380px){#q_reg button,#q_seg button{font-size:.8rem}.hero{gap:10px;padding-top:8px}.hero h1{font-size:1.65rem}.ang-C .hero h1{font-size:1.4rem}.ang-C #h_eb{display:none}.rr{margin-top:4px}.box{padding:12px 14px 14px}.box label,.box .lbl{margin:7px 0 4px}.seg{gap:5px}#toLead{margin-top:10px}}
+
 </style></head>
 <body data-svc="trib" data-disc="Estimativa com premissas simplificadas. O valor real depende da conferência dos documentos da empresa.">
-<header class="w top"><div class="logo"><svg viewBox="0 0 132 34" role="img" aria-label="4RCAP"><text x="0" y="26" font-family="Inter Tight,Inter,sans-serif" font-weight="700" font-size="28" fill="#0F5C4D" letter-spacing="-.5">4R</text><text x="35" y="26" font-family="Inter Tight,Inter,sans-serif" font-weight="700" font-size="28" fill="#0E1116" letter-spacing="-.5">CAP</text></svg></div><a href="#como" class="hl">Como funciona</a></header>
+<header class="w top"><div class="logo"><svg viewBox="0 0 132 34" role="img" aria-label="4RCAP"><path fill="#0F5C4D" d="M0.89 22.42V19.04L9.38 5.63H12.3V10.33H10.57L5.21 18.81V18.97H17.3V22.42ZM10.65 26V21.4L10.74 19.88V5.63H14.78V26ZM18.87 26V5.63H26.9Q29.21 5.63 30.85 6.45Q32.48 7.27 33.34 8.77Q34.21 10.27 34.21 12.28Q34.21 14.31 33.33 15.77Q32.46 17.23 30.8 18.01Q29.14 18.78 26.79 18.78H21.42V15.32H26.09Q27.33 15.32 28.15 14.98Q28.97 14.64 29.37 13.97Q29.77 13.3 29.77 12.28Q29.77 11.27 29.37 10.57Q28.96 9.88 28.15 9.52Q27.33 9.16 26.08 9.16H23.17V26ZM30.18 26 25.22 16.73H29.87L34.93 26Z"/><path fill="#0E1116" d="M45.43 26.27Q42.72 26.27 40.57 25.04Q38.43 23.81 37.19 21.48Q35.95 19.14 35.95 15.83Q35.95 12.49 37.2 10.15Q38.45 7.81 40.6 6.58Q42.75 5.36 45.43 5.36Q47.2 5.36 48.72 5.85Q50.24 6.35 51.42 7.3Q52.59 8.25 53.32 9.63Q54.06 11.01 54.27 12.77H49.92Q49.8 11.93 49.43 11.26Q49.06 10.59 48.49 10.12Q47.91 9.66 47.17 9.41Q46.42 9.16 45.53 9.16Q43.97 9.16 42.79 9.94Q41.61 10.72 40.96 12.21Q40.31 13.7 40.31 15.83Q40.31 18 40.97 19.48Q41.62 20.96 42.79 21.72Q43.97 22.47 45.52 22.47Q46.38 22.47 47.11 22.24Q47.85 22.01 48.43 21.57Q49.01 21.13 49.39 20.49Q49.77 19.86 49.92 19.04H54.27Q54.1 20.45 53.43 21.75Q52.77 23.05 51.64 24.07Q50.51 25.08 48.95 25.68Q47.39 26.27 45.43 26.27ZM59.46 26H54.84L61.87 5.63H67.42L74.44 26H69.84L64.72 10.28H64.56ZM59.18 17.99H70.08V21.35H59.18ZM75.45 26V5.63H83.48Q85.79 5.63 87.43 6.51Q89.06 7.39 89.92 8.95Q90.79 10.52 90.79 12.54Q90.79 14.57 89.91 16.12Q89.04 17.66 87.38 18.53Q85.72 19.4 83.37 19.4H78.25V15.95H82.67Q83.91 15.95 84.73 15.52Q85.55 15.08 85.95 14.31Q86.35 13.54 86.35 12.54Q86.35 11.52 85.95 10.76Q85.55 10 84.73 9.58Q83.91 9.16 82.66 9.16H79.75V26Z"/></svg></div><a href="#como" class="hl">Como funciona</a></header>
 <main>
 <div class="w hero">
  <div><p class="eyebrow" id="h_eb">Recuperação tributária · PMEs</p>
   <h1 id="h_h1">Sua empresa pode ter pago <span>imposto a mais</span> nos últimos 5 anos.</h1>
-  <p class="rr" id="h_rr">Sem custo inicial · honorário só sobre o que for recuperado · seu contador continua o mesmo</p>
+  <p class="rr" id="h_rr">Sem custo para simular e conferir · honorário só sobre o que for efetivamente recuperado</p>
   <p class="sub" id="h_sub">Revisamos o PIS e a Cofins pagos no DAS junto com o seu contador. Foco em empresas do Simples que vendem produtos monofásicos. Sem custo inicial: honorário só sobre o que for efetivamente recuperado.</p>
-  <ul class="bul"><li><b>01</b>Simulação sem pedir dados da empresa</li><li><b>02</b>Seu contador continua o mesmo</li><li><b>03</b>Base legal: arts. 165 a 168 do CTN</li></ul></div>
+  <ul class="bul"><li><b>01</b>Simulação sem pedir dados da empresa</li><li><b>02</b>Seu contador continua o mesmo</li><li><b>03</b>Honorário só sobre o que for recuperado</li></ul></div>
  <div class="box" id="box"><div class="prog"><i class="on"></i><i></i><i></i></div>
-  <div class="step" data-s="1"><h3>Simule uma estimativa</h3><p class="bs">3 perguntas · cerca de 30 segundos</p>
-   <p class="lbl" id="l_reg">Regime tributário</p><div class="seg" id="q_reg" data-v="simples" role="group" aria-labelledby="l_reg"><button type="button" class="on" aria-pressed="true" data-v="simples">Simples Nacional</button><button type="button" aria-pressed="false" data-v="pres">Lucro Presumido</button><button type="button" aria-pressed="false" data-v="real">Lucro Real</button><button type="button" aria-pressed="false" data-v="nsei">Não sei</button></div>
-   <label for="q_fat">Faturamento mensal médio</label><input id="q_fat" class="money" inputmode="numeric" placeholder="R$ 150.000" required>
-   <p class="lbl" id="l_seg">O que a empresa mais vende</p><div class="seg" id="q_seg" data-v="" role="group" aria-labelledby="l_seg"><button type="button" aria-pressed="false" data-v="farm">Farmácia, perfumaria ou cosméticos</button><button type="button" aria-pressed="false" data-v="auto">Autopeças</button><button type="button" aria-pressed="false" data-v="beb">Bebidas</button><button type="button" aria-pressed="false" data-v="outro">Outro segmento</button></div>
-   <div class="err" id="e1" aria-live="polite"></div><button class="btn" type="button" id="toLead">Simular estimativa <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><p class="micro">Sem compromisso. Nenhum dado pedido nesta etapa.</p></div>
-  <div class="step" data-s="2"><h3>Sua estimativa está pronta</h3><div class="teaser"><div class="v" id="tz">R$ 00.000 a R$ 00.000</div><div class="micro" id="tzl" style="margin-top:4px"></div></div>
-   <form id="leadF" novalidate><p class="bs" style="margin-top:16px">Para onde mandamos o resultado e o próximo passo?</p><input id="hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-   <label for="f_n">Nome</label><input id="f_n" autocomplete="name" required><label for="f_t">WhatsApp</label><input id="f_t" inputmode="tel" autocomplete="tel" placeholder="(11) 90000-0000" required><label for="f_e">E-mail <span class="opt">(opcional)</span></label><input id="f_e" type="email" autocomplete="email">
+  <div class="step on" data-s="1"><h3>Simule uma estimativa</h3><p class="bs" id="q_bs">3 perguntas · cerca de 30 segundos</p>
+   <p class="pre" id="q_pre" hidden></p>
+   <div class="qg" id="g_reg"><p class="lbl" id="l_reg">Regime tributário</p><div class="seg" id="q_reg" data-v="simples" role="group" aria-labelledby="l_reg"><button type="button" class="on" aria-pressed="true" data-v="simples">Simples<span class="lg"> Nacional</span></button><button type="button" aria-pressed="false" data-v="pres"><span class="lg">Lucro </span>Presumido</button><button type="button" aria-pressed="false" data-v="real"><span class="lg">Lucro </span>Real</button><button type="button" aria-pressed="false" data-v="nsei">Não sei</button></div></div>
+   <label for="q_fat">Faturamento mensal médio</label><input id="q_fat" class="money" inputmode="numeric" autocomplete="off" placeholder="R$ 150.000" required>
+   <div class="qg" id="g_seg"><p class="lbl" id="l_seg">A empresa vende algum destes produtos?</p><div class="seg" id="q_seg" data-v="" role="group" aria-labelledby="l_seg"><button type="button" aria-pressed="false" data-v="farm">Farmácia/<wbr>perfumaria</button><button type="button" aria-pressed="false" data-v="auto">Autopeças/<wbr>pneus</button><button type="button" aria-pressed="false" data-v="beb">Bebidas</button><button type="button" aria-pressed="false" data-v="merc">Mercado, conveniência ou atacado</button><button type="button" aria-pressed="false" data-v="outro">Outro</button></div>
+    <div class="qo" id="q_outg" hidden><p class="lbl" id="l_out">Vende medicamentos, cosméticos/higiene, autopeças/pneus ou bebidas frias?</p><div class="seg" id="q_out" data-v="" role="group" aria-labelledby="l_out"><button type="button" aria-pressed="false" data-v="sim">Sim</button><button type="button" aria-pressed="false" data-v="nao">Não</button></div><p class="qo-m" id="q_outm" aria-live="polite"></p></div></div>
+   <div class="err" id="e1" aria-live="polite"></div><button class="btn" type="button" id="toLead"><span id="toLeadT">Simular estimativa</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><p class="micro">Sem compromisso. Nenhum dado pedido nesta etapa.</p></div>
+  <div class="step" data-s="2"><button type="button" class="lk bk" id="back1">Alterar respostas</button><h3 id="s2h">Sua estimativa está pronta</h3><div class="teaser"><div class="v" id="tz" aria-hidden="true">R$ 00.000 a R$ 00.000</div><span class="sr">A faixa estimada aparece depois que você informar o contato.</span><div class="micro" id="tzl" style="margin-top:4px"></div></div>
+   <form id="leadF" novalidate><p class="bs" style="margin-top:14px">Para onde mandamos o resultado e o próximo passo?</p><input id="hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+   <label for="f_n">Nome</label><input id="f_n" autocomplete="name" required><label for="f_t">WhatsApp</label><input id="f_t" inputmode="tel" autocomplete="tel" placeholder="(11) 90000-0000" required>
    <label class="ck"><input type="checkbox" id="f_ok"> <span>Autorizo a 4RCAP a usar estes dados para responder a minha simulação, conforme a <a href="privacidade.html" target="_blank">Política de Privacidade</a> (LGPD).</span></label>
    <label class="ck"><input type="checkbox" id="f_mkt"> <span>Quero receber avisos sobre prazos e mudanças da Reforma Tributária. <span class="opt">(opcional)</span></span></label>
-   <div class="err" id="e2" aria-live="polite"></div><button class="btn">Ver resultado e falar no WhatsApp <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><p class="micro">Sem senha, sem certificado digital nesta etapa · Dados tratados com confidencialidade, conforme a LGPD · Respondemos em até 1 dia útil</p></form></div>
+   <div class="err" id="e2" aria-live="polite"></div><button class="btn">Ver meu resultado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><p class="micro">Sem senha nem certificado · resposta em até 1 dia útil</p></form></div>
   <div class="step res" data-s="3" id="res"></div>
  </div>
 </div>
+<script>/* Ângulo do anúncio (utm_content = A, B ou C, com segmento opcional: B-farmacia-chat).
+   Roda logo depois do hero, antes da primeira pintura: troca o texto sem deslocar a página. Não depende do lp.js. */
+(function(){var uc='';try{uc=(new URLSearchParams(location.search).get('utm_content')||'').trim()}catch(e){}if(!uc)return;
+ var M='jan fev mar abr mai jun jul ago set out nov dez'.split(' '),d=new Date(),w=new Date(d.getFullYear()-5,d.getMonth()+(d.getDate()>20?1:0),1),W0=M[w.getMonth()]+'/'+w.getFullYear(),DL='20/'+('0'+(w.getMonth()+1)).slice(-2)+'/'+(w.getFullYear()+5);
+ var TK={farmacia:'farm',autopecas:'auto',bebidas:'beb',mercado:'merc'},SL={farm:'Farmácia/perfumaria',auto:'Autopeças/pneus',beb:'Bebidas',merc:'Mercado, conveniência ou atacado'},seg=null;
+ uc.toLowerCase().split('-').forEach(function(t){if(TK[t])seg=TK[t]});
+ var ANG={
+  A:{eb:'Recuperação tributária · PMEs',h1:'Imposto pago a mais é <span>caixa parado</span>.',
+     sub:'Sua empresa pode ter pago tributo a mais nos últimos 5 anos. Simule em 30 segundos quanto pode voltar. Sem custo inicial: honorário só sobre o que for efetivamente recuperado.'},
+  B:{eb:'Farmácia · autopeças · bebidas · Simples Nacional',h1:'Seu DAS pode ter cobrado <span>PIS e Cofins a mais</span>.',
+     sub:'PIS e Cofins de muitos produtos já vêm pagos da indústria. Se o PGDAS-D não separou essa receita, o DAS pode ter incluído PIS e Cofins que não eram devidos.',reg:1},
+  C:{eb:'Prazo de 5 anos · Simples com produtos monofásicos',h1:'O prazo para pedir imposto de volta <span>anda todo mês</span>.',
+     sub:'Hoje dá para revisar os DAS pagos desde <b>{W0}</b>. Esse pagamento sai do prazo em {DL}; os seguintes saem um por mês.',mob:1}};
+ var k=uc.charAt(0).toUpperCase(),a=ANG[k]||null;if(k==='D'&&!seg){window.LP_ANG={ang:'D',seg:null};return}if(!a&&!seg)return;
+ window.LP_ANG={ang:a?k:null,seg:seg};
+ var g=function(i){return document.getElementById(i)};
+ if(a){document.documentElement.classList.add('ang-'+k);g('h_eb').textContent=a.eb;g('h_h1').innerHTML=a.h1;g('h_sub').innerHTML=a.sub.replace('{W0}',W0).replace('{DL}',DL);if(a.mob)g('h_sub').classList.add('mob')}
+ var parts=[],left=1;
+ if(a&&a.reg){g('g_reg').hidden=true;parts.push('Simples Nacional')}else left++;
+ if(seg){g('g_seg').hidden=true;parts.push(SL[seg])}else left++;
+ if(parts.length){var p=g('q_pre');p.innerHTML=parts.join(' · ')+' · <button type="button" class="lk" id="q_alt">alterar</button>';p.hidden=false;
+  g('q_bs').textContent=left===1?'1 pergunta · 10 segundos':left===2?'2 perguntas · cerca de 20 segundos':'3 perguntas · cerca de 30 segundos'}
+})();</script>
 <div class="w facts f3"><div><b class="cfg-w0">nov/2021</b><span>é o mês mais antigo que ainda dá para revisar hoje</span></div><div><b>Seu contador</b><span>continua o mesmo: a conferência é feita junto com ele</span></div><div><b>% do recuperado</b><span>é a única forma de honorário, combinada antes de começar</span></div></div>
 
 <section class="white"><div class="w pq">
  <div><p class="eyebrow">Para quem é</p>
   <h2 class="h2">Feito para empresas do Simples que revendem produtos monofásicos.</h2>
   <ul class="chips"><li>Farmácias</li><li>Perfumarias e cosméticos</li><li>Autopeças</li><li>Distribuidoras de bebidas</li></ul>
-  <p class="body">Nesses produtos, o PIS e a Cofins já são recolhidos na indústria ou na importação. No Simples, essa receita precisa ser separada no PGDAS-D. Quando não é, o DAS pode incluir PIS e Cofins que não eram devidos. O caminho é retificar os meses afetados e pedir a restituição ou a compensação.</p>
+  <p class="body">Nesses produtos, o PIS e a Cofins já são recolhidos na indústria ou na importação. No Simples, essa receita precisa ser separada no PGDAS-D. Quando não é, o DAS pode incluir PIS e Cofins que não eram devidos. O caminho é retificar os meses afetados e pedir a restituição ou, quando a lei permitir, a compensação.</p>
   <details class="note"><summary><b>Lucro Presumido ou Real?</b> A simulação também serve.</summary><p>No Lucro Real, a revisão pode incluir créditos de PIS/Cofins sobre gastos essenciais ou relevantes para a atividade, conforme o entendimento do STJ (REsp 1.221.170). Cada item precisa de análise. E créditos que não estiverem escriturados até a virada para a CBS podem ficar mais difíceis de aproveitar: vale revisar ainda em 2026.</p></details></div>
+ <details class="repd" id="repd"><summary>Ver exemplo do detalhamento que você recebe</summary>
  <figure class="rep" aria-label="Exemplo ilustrativo de relatório">
   <p class="rep-tag">Exemplo ilustrativo · empresa fictícia</p>
   <p class="rep-h">Farmácia · Simples Nacional · Anexo I</p>
-  <div class="rep-t"><table><thead><tr><th>Competência</th><th>Receita monofásica</th><th>PIS/Cofins no DAS*</th><th>Situação</th></tr></thead>
-  <tbody><tr><td>jan/2024</td><td>R$ 64.000</td><td>~R$ 650</td><td>não segregada</td></tr>
-  <tr><td>fev/2024</td><td>R$ 61.000</td><td>~R$ 620</td><td>não segregada</td></tr>
-  <tr><td>mar/2024</td><td>R$ 70.000</td><td>~R$ 720</td><td>parcial</td></tr></tbody></table></div>
+  <p class="rep-in">Faturamento de R$ 120.000 por mês (receita bruta de 12 meses de R$ 1,44 milhão, faixa 4) · alíquota efetiva de 9,14%</p>
+  <div class="rep-t"><table><thead><tr><th>Competência</th><th>Monofásico sem separar</th><th>PIS/Cofins no DAS*</th><th>Situação</th></tr></thead>
+  <tbody><tr><td>jan/2024</td><td>R$ 64.000<span class="m"> em monofásicos</span></td><td>~R$ 906<span class="m"> no DAS</span></td><td>não segregada</td></tr>
+  <tr><td>fev/2024</td><td>R$ 61.000<span class="m"> em monofásicos</span></td><td>~R$ 864<span class="m"> no DAS</span></td><td>não segregada</td></tr>
+  <tr><td>mar/2024</td><td>R$ 30.000<span class="m"> em monofásicos</span></td><td>~R$ 425<span class="m"> no DAS</span></td><td>parcial</td></tr></tbody></table></div>
   <p class="rep-h">Alertas da conferência</p>
   <ul class="rep-al"><li>Medicamento monofásico declarado como receita comum no PGDAS-D</li>
   <li>Perfumaria sem segregação em 7 competências</li>
   <li>Produtos cadastrados sem NCM, o que impede a conferência item a item</li></ul>
-  <p class="rep-foot">* Estimativa. Valores fictícios, só para mostrar o formato do detalhamento que você recebe. Não representam um cliente.</p></figure>
+  <p class="rep-foot">* Estimativa pela mesma conta da simulação: receita monofásica não separada × alíquota efetiva do Anexo I (9,14%) × 15,5% (parte do PIS e da Cofins no DAS nas faixas 1 a 5). Valores fictícios, só para mostrar o formato do detalhamento que você recebe. Não representam um cliente.</p></figure></details>
+ <script>(function(d){try{if(d&&matchMedia('(min-width:901px)').matches)d.open=true}catch(e){}})(document.getElementById('repd'))</script>
 </div></section>
 
 <section class="ink"><div class="w">
  <div class="dl">
   <p class="eyebrow">Prazo</p>
   <h2 class="h2">O prazo é de 5 anos, contado de cada pagamento.</h2>
-  <p class="win"><span>Hoje dá para revisar o que foi pago desde</span> <b id="win0">nov/2021</b><span>. No dia 1º de</span> <b id="win1">dez/2026</b><span>,</span> <b id="win2">nov/2021</b> <span>sai da conta, e assim todo mês.</span></p>
+  <p class="win"><span>Hoje dá para revisar os DAS pagos desde</span> <b id="win0">nov/2021</b><span>. Esse pagamento sai do prazo em </span><span id="win1">20/11/2026</span><span>; os seguintes saem um por mês.</span></p>
   <p class="dl-note">Em 2027 a CBS substitui o PIS e a Cofins, e o DAS muda. A Reforma não apaga o que foi pago a mais nos últimos anos: esses valores ainda podem ser revisados.</p>
   <a href="#box" class="btn ghost" data-top>Simular o que ainda está no prazo</a></div>
  <div class="blk2" id="como"><p class="eyebrow">Como funciona</p><h2 class="h2">Você só decide depois de ver o detalhamento.</h2>
- <div class="steps s5">
-  <div><span class="n">01</span><span class="tg">Sem custo · agora</span><h3>Simulação</h3><p>Três perguntas, nenhum dado da empresa. Você vê uma faixa de valores na hora.</p></div>
-  <div><span class="n">02</span><span class="tg">Sem custo · em até 1 dia útil</span><h3>Conversa no WhatsApp</h3><p>Confirmamos regime, segmento e quais arquivos são necessários. Sem senha e sem certificado digital nesta etapa.</p></div>
-  <div><span class="n">03</span><span class="tg">Sem custo · após receber os arquivos</span><h3>Conferência item a item</h3><p>Seu contador envia PGDAS-D e XMLs de venda (ou SPED, no Presumido e no Real). Cruzamos NCM por NCM, mês a mês, e você recebe o detalhamento por escrito.</p></div>
-  <div class="pd"><span class="n">04</span><span class="tg">Só se houver crédito</span><h3>Retificação e pedido</h3><p>Com o seu ok, os meses afetados são retificados e o pedido de restituição ou compensação é feito, com a documentação de cada valor.</p></div>
-  <div class="pd"><span class="n">05</span><span class="tg">Só se houver crédito</span><h3>Valor volta</h3><p>O valor pode ser compensado em tributos futuros ou restituído, conforme a análise da Receita. Honorário: um percentual combinado antes, só sobre o que for efetivamente recuperado.</p></div>
+ <div class="steps s3">
+  <div><span class="n">01</span><span class="tg">Sem custo · em até 1 dia útil</span><h3>Conversa no WhatsApp</h3><p>Confirmamos regime, segmento e quais arquivos são necessários. Sem senha e sem certificado digital nesta etapa.</p></div>
+  <div><span class="n">02</span><span class="tg">Sem custo · após receber os arquivos</span><h3>Conferência item a item</h3><p>Seu contador envia PGDAS-D e XMLs de venda (ou SPED, no Presumido e no Real). Cruzamos NCM por NCM, mês a mês, e você recebe o detalhamento por escrito.</p></div>
+  <div class="pd"><span class="n">03</span><span class="tg">Só se houver crédito</span><h3>Retificação do PGDAS-D, pedido e restituição</h3><p>Com o seu ok, os meses afetados são retificados e o pedido é feito, com a documentação de cada valor. O valor pode ser restituído ou, quando a lei permitir, compensado no próprio DAS, conforme a análise da Receita. Honorário: um percentual combinado antes, só sobre o que for efetivamente recuperado.</p></div>
  </div></div></div></section>
 
-<section class="white"><div class="w w8"><p class="eyebrow">Segurança</p><h2 class="h2">Recuperar errado sai mais caro do que não recuperar.</h2>
- <p class="lead">Compensação feita sem base técnica pode ser recusada pela Receita. O débito volta com juros e multa e, em casos de declaração falsa, com multa de ofício. Por isso cada valor é documentado antes de ser pedido.</p>
+<section class="white"><div class="w w8"><p class="eyebrow">Segurança</p><h2 class="h2">Cada valor é documentado antes de ser pedido.</h2>
+ <p class="lead">Pedido sem base técnica pode ser recusado. Se o valor já tiver sido compensado, o débito volta com juros e multa. Por isso conferimos item a item, pelo NCM, junto com o seu contador.</p>
  <table class="cmp"><thead><tr><th></th><th>Como a 4RCAP trabalha</th><th>O que convém evitar</th></tr></thead><tbody>
   <tr><td>Honorário</td><td data-label="4RCAP">Percentual combinado antes, só sobre o que for efetivamente recuperado</td><td data-label="Convém evitar">Taxa cobrada antes de saber se existe crédito</td></tr>
   <tr><td>Conferência</td><td data-label="4RCAP">Item a item, por NCM e mês, com detalhamento por escrito antes de qualquer pedido</td><td data-label="Convém evitar">Percentual sobre o faturamento e só o valor total</td></tr>
   <tr><td>Depois do pedido</td><td data-label="4RCAP">Acompanhamento até a compensação ou restituição<!-- [a confirmar com João] --></td><td data-label="Convém evitar">Atendimento que termina na transmissão</td></tr>
  </tbody></table>
- <a href="#box" class="btn au" data-top>Simular agora <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+ <p class="cmp-av">Convém evitar quem cobra antes de saber se existe crédito, calcula só um percentual sobre o faturamento ou para de atender depois da transmissão.</p>
+ <a href="#box" class="btn au" data-top>Simular sem custo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
 
 <section><div class="w"><p class="eyebrow">Perguntas frequentes</p><h2 class="h2">Antes de simular, o que costumam perguntar.</h2><div class="faq">
  <h3 class="fq-g">Sobre a revisão</h3>
  <details><summary>Preciso dar senha ou certificado digital?</summary><p>Para simular, não. Na conferência, seu contador envia os arquivos (PGDAS-D e XMLs de venda). Se preferir, a empresa pode dar uma procuração eletrônica no e-CAC, que pode ser revogada a qualquer momento.</p></details>
  <details><summary>Quais produtos entram?</summary><p>O que define é o NCM de cada item, conforme a lista do PIS/Cofins monofásico. Os casos mais comuns são farmácias, perfumarias e cosméticos, autopeças e distribuidoras de bebidas. Na conferência separamos o que entra e o que não entra.</p></details>
  <details><summary>Quanto custa?</summary><p>A simulação e a conferência não têm custo. Se houver crédito e você quiser seguir, o honorário é um percentual combinado em contrato, só sobre o que for efetivamente recuperado.</p></details>
- <details><summary>Quanto tempo leva?</summary><p>Respondemos no WhatsApp em até 1 dia útil. A conferência depende de quando os arquivos chegam. A restituição depende da análise da Receita, e a compensação em tributos futuros costuma ser o caminho mais direto.</p></details>
+ <details><summary>Quanto tempo leva?</summary><p>Respondemos no WhatsApp em até 1 dia útil. A conferência depende de quando os arquivos chegam. A restituição depende da análise da Receita.</p></details>
  <h3 class="fq-g">Sobre segurança e o seu contador</h3>
- <details><summary>Isso chama atenção da Receita?</summary><p>Retificar o PGDAS-D e pedir restituição são procedimentos previstos na lei (arts. 165 a 168 do CTN). A Receita pode reter declarações em malha para conferir. Por isso cada valor vai documentado por NCM e competência antes do pedido.</p></details>
+ <details><summary>Isso chama atenção da Receita?</summary><p>Retificar o PGDAS-D e pedir restituição são procedimentos previstos na lei (CTN, arts. 165 e 168; LC 123, art. 21). A Receita pode reter declarações em malha para conferir. Por isso cada valor vai documentado por NCM e competência antes do pedido.</p></details>
  <details><summary>Preciso trocar de contador?</summary><p>Não. Trabalhamos junto com ele, que continua responsável pela rotina fiscal.</p></details>
  <details><summary>A empresa saiu do Simples. Ainda dá?</summary><p>Os pagamentos feitos enquanto ela estava no Simples continuam revisáveis, dentro de 5 anos de cada pagamento.</p></details>
  <details><summary>E com a CBS em 2027?</summary><p>O Simples continua. A partir de 2027 a CBS substitui o PIS e a Cofins dentro do DAS. A mudança vale daqui para frente: o DAS pago até dez/2026 com PIS/Cofins monofásico indevido continua podendo ser revisado no prazo de 5 anos.</p></details>
- 
 </div><p class="fq-n">A simulação é uma estimativa com premissas simplificadas. O valor real só sai da conferência dos documentos.</p></div></section>
 
-<section class="fin-s"><div class="w fin"><h2>Comece pela simulação. Leva 30 segundos.</h2><a href="#box" class="btn" data-top>Simular agora <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<section class="fin-s"><div class="w fin"><h2>Comece pela simulação. Leva 30 segundos.</h2><a href="#box" class="btn" data-top>Simular agora <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
 </main>
 <footer class="w">
- <p class="pc" id="contadores">É contador(a) ou escritório? Seu cliente continua seu: você indica, a gente confere o monofásico item a item e devolve o detalhamento para você validar. <a id="parc" target="_blank" rel="noopener" href="#">Conversar sobre parceria</a></p>
+ <p class="pc" id="parceiro">É contador(a) ou escritório? Seu cliente continua seu: você indica, a gente confere o monofásico item a item e devolve o detalhamento para você validar. <a id="parc" target="_blank" rel="noopener" href="#">Conversar sobre parceria</a></p>
  <p class="qt">Quem está por trás</p>
  <!-- [a confirmar] antes de anunciar: incluir razão social, cidade/UF e e-mail de contato nesta linha (Decreto 7.962/2013) -->
  <p><span class="cfg-marca"></span> · CNPJ <span class="cfg-cnpj"></span></p>
  <p>Atendimento por <a class="wa-link" target="_blank" rel="noopener" href="#">WhatsApp</a>, seg a sex, 9h às 18h · <a href="privacidade.html">Política de Privacidade</a></p>
  <p>Simulações educativas, sem garantia de resultado. Serviços de consultoria tributária. © <span class="cfg-marca"></span></p></footer>
 <div class="stick"><a href="#box" class="btn" data-top data-l1="Simular agora" data-l2="Concluir simulação">Simular agora</a></div>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"4RCAP","taxID":"46.131.513/0001-32","url":"https://4rcap.com.br/"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
 {"@type":"Question","name":"Preciso dar senha ou certificado digital?","acceptedAnswer":{"@type":"Answer","text":"Para simular, não. Na conferência, seu contador envia os arquivos (PGDAS-D e XMLs de venda). Se preferir, a empresa pode dar uma procuração eletrônica no e-CAC, que pode ser revogada a qualquer momento."}},
 {"@type":"Question","name":"Quais produtos entram?","acceptedAnswer":{"@type":"Answer","text":"O que define é o NCM de cada item, conforme a lista do PIS/Cofins monofásico. Os casos mais comuns são farmácias, perfumarias e cosméticos, autopeças e distribuidoras de bebidas. Na conferência separamos o que entra e o que não entra."}},
 {"@type":"Question","name":"Quanto custa?","acceptedAnswer":{"@type":"Answer","text":"A simulação e a conferência não têm custo. Se houver crédito e você quiser seguir, o honorário é um percentual combinado em contrato, só sobre o que for efetivamente recuperado."}},
-{"@type":"Question","name":"Quanto tempo leva?","acceptedAnswer":{"@type":"Answer","text":"Respondemos no WhatsApp em até 1 dia útil. A conferência depende de quando os arquivos chegam. A restituição depende da análise da Receita, e a compensação em tributos futuros costuma ser o caminho mais direto."}},
-{"@type":"Question","name":"Isso chama atenção da Receita?","acceptedAnswer":{"@type":"Answer","text":"Retificar o PGDAS-D e pedir restituição são procedimentos previstos na lei (arts. 165 a 168 do CTN). A Receita pode reter declarações em malha para conferir. Por isso cada valor vai documentado por NCM e competência antes do pedido."}},
+{"@type":"Question","name":"Quanto tempo leva?","acceptedAnswer":{"@type":"Answer","text":"Respondemos no WhatsApp em até 1 dia útil. A conferência depende de quando os arquivos chegam. A restituição depende da análise da Receita."}},
+{"@type":"Question","name":"Isso chama atenção da Receita?","acceptedAnswer":{"@type":"Answer","text":"Retificar o PGDAS-D e pedir restituição são procedimentos previstos na lei (CTN, arts. 165 e 168; LC 123, art. 21). A Receita pode reter declarações em malha para conferir. Por isso cada valor vai documentado por NCM e competência antes do pedido."}},
 {"@type":"Question","name":"Preciso trocar de contador?","acceptedAnswer":{"@type":"Answer","text":"Não. Trabalhamos junto com ele, que continua responsável pela rotina fiscal."}},
 {"@type":"Question","name":"A empresa saiu do Simples. Ainda dá?","acceptedAnswer":{"@type":"Answer","text":"Os pagamentos feitos enquanto ela estava no Simples continuam revisáveis, dentro de 5 anos de cada pagamento."}},
 {"@type":"Question","name":"E com a CBS em 2027?","acceptedAnswer":{"@type":"Answer","text":"O Simples continua. A partir de 2027 a CBS substitui o PIS e a Cofins dentro do DAS. A mudança vale daqui para frente: o DAS pago até dez/2026 com PIS/Cofins monofásico indevido continua podendo ser revisado no prazo de 5 anos."}}]}</script>

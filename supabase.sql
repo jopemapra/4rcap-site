@@ -50,3 +50,9 @@ revoke all on public.leads_recentes from anon;
 
 -- LP tributária (nov/2026): e-mail passou a ser opcional no formulário. Sem isto, leads sem e-mail são recusados pelo banco.
 alter table public.leads alter column email drop not null;
+
+-- LP tributária (nov/2026): protocolo único por lead. Evita gravar o mesmo lead duas vezes quando a fila do navegador reenvia.
+-- Vários leads sem protocolo (null) continuam permitidos. Se este comando falhar por duplicidade, rode antes:
+--   select protocolo, count(*) from public.leads where protocolo is not null group by 1 having count(*) > 1;
+-- e resolva as linhas repetidas.
+create unique index if not exists leads_protocolo_uq on public.leads(protocolo);

@@ -1,6 +1,16 @@
+/* fontes hospedadas no próprio site (subconjunto latin; Inter e Inter Tight são variáveis) */
+@font-face{font-family:"Inter";font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Inter Tight";font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter-tight-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/plex-mono-400-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;src:url(fonts/plex-mono-500-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+/* fallback com métricas ajustadas: a troca para a fonte final quase não mexe no layout */
+@font-face{font-family:"Inter Fallback";font-weight:100 500;src:local("Arial"),local("ArialMT"),local("Liberation Sans"),local("Helvetica");size-adjust:105.38%;ascent-override:91.93%;descent-override:22.89%;line-gap-override:0%}
+@font-face{font-family:"Inter Fallback";font-weight:600 900;src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold"),local("Helvetica Bold");size-adjust:100.69%;ascent-override:96.21%;descent-override:23.96%;line-gap-override:0%}
+@font-face{font-family:"Inter Tight Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold"),local("Helvetica Bold");font-weight:600 900;size-adjust:93.12%;ascent-override:104.03%;descent-override:25.9%;line-gap-override:0%}
 :root{--ink:#0E1116;--paper:#F6F4EF;--white:#fff;--gr:#4A4F57;--mut:#6B7079;--line:#DAD6CC;--ac:#0F5C4D;--ach:#0B4A3E;--sig:#C8F169;--err:#B42318;
---sans:"Inter",system-ui,sans-serif;--disp:"Inter Tight","Inter",sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace}
+--sans:"Inter","Inter Fallback",system-ui,sans-serif;--disp:"Inter Tight","Inter Tight Fallback","Inter","Inter Fallback",sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace}
 *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
 .w{max-width:1200px;margin:0 auto;padding-left:24px;padding-right:24px}
 .top{display:flex;justify-content:space-between;align-items:center;height:72px;border-bottom:1px solid var(--line)}

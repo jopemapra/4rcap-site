@@ -29,7 +29,7 @@ Hoje, contas, fórum, leads e agendamentos ficam no navegador de cada visitante.
 Caminho mais simples só para os leads: envie o formulário para um Google Form, Formspree ou webhook do seu CRM (RD Station, HubSpot).
 
 ## 4. Medição
-Cole o Google Tag Manager no `<head>`. Os eventos já são enviados ao `dataLayer`: `lead`, `quiz_done`, `calc_open`, `sim_save`, `schedule`, `radar_signup`, `form_start`, `scroll_50` e outros. A coleta respeita a escolha de cookies do visitante.
+Cole o Google Tag Manager no `<head>` (opcional para a lp-tributario: o evento `Lead` do Meta não depende de GTM; ver 6b). Os eventos já são enviados ao `dataLayer`: `lead`, `quiz_done`, `calc_open`, `sim_save`, `schedule`, `radar_signup`, `form_start`, `scroll_50` e outros. A coleta respeita a escolha de cookies do visitante.
 
 ## 5. Links úteis para anúncios
 - `#calc-c1` … `#calc-c12` abrem cada calculadora
@@ -44,11 +44,37 @@ Cole o Google Tag Manager no `<head>`. Os eventos já são enviados ao `dataLaye
 ## 6. Antes de ligar os anúncios da lp-tributario (checklist)
 Rode na pasta do site e só publique quando os itens estiverem resolvidos:
 
-    grep -rn "a confirmar" lp-tributario.html privacidade.html lp.js
+    grep -rn "a confirmar" lp-tributario.html privacidade.html lp.js ANUNCIOS-TRIBUTARIO.md
     grep -n "5500000000000" lp.js privacidade.html
 
+**Dados que só o João pode informar** (ficam como **[a confirmar]** até lá; não inventar):
 - `LP_CONFIG.whatsapp` em `lp.js` e o link de contato em `privacidade.html`: número real.
-- Rodapé da `lp-tributario.html` e "Controlador" em `privacidade.html`: razão social, cidade/UF e e-mail (Decreto 7.962/2013 e LGPD art. 41).
+- Rodapé da `lp-tributario.html` e "Controlador" em `privacidade.html`: razão social, endereço (cidade/UF) e e-mail (Decreto 7.962/2013 e LGPD art. 41).
+- Domínio: `canonical` e `og:image` da landing e o `[domínio a confirmar]` de todos os links do `ANUNCIOS-TRIBUTARIO.md`.
 - `privacidade.html`: confirmar fornecedores, prazo de guarda (24 meses) e transferência internacional.
-- `supabase.sql`: rodar a migração que torna o e-mail opcional.
-- Domínio do `canonical` e do `og:image`.
+
+**Arquivos da landing que precisam subir juntos:** `lp-tributario.html`, `lp2.css`, `lp.js`, `privacidade.html` e a pasta **`/fonts`** inteira (as fontes são servidas pelo próprio site; sem a pasta, a página cai na fonte do sistema). Depois de publicar, abra a landing com o DevTools (aba Network, filtro "font") e confira que os `.woff2` voltam 200.
+Não publique: `FONTES-TRIBUTARIO.md`, `ANUNCIOS-TRIBUTARIO.md`, `supabase.sql`, a pasta `criativos/`.
+
+### 6a. Supabase: rodar as duas migrações antes de ir ao ar
+No SQL Editor do Supabase, rode o `supabase.sql` inteiro (pode rodar de novo sem problema). As duas migrações do fim são obrigatórias:
+1. `alter table public.leads alter column email drop not null;` (o e-mail ficou opcional no formulário; sem isso, lead sem e-mail é recusado).
+2. `create unique index if not exists leads_protocolo_uq on public.leads(protocolo);` (impede lead duplicado quando a fila do navegador reenvia). Se der erro de duplicidade, rode a consulta comentada logo acima dela no arquivo e resolva as linhas repetidas.
+
+Teste: faça uma simulação real com o seu número e confira a linha em `leads_recentes`. Se o envio falhar, a landing registra `lead_send_fail` e guarda o lead no navegador para reenviar.
+
+### 6b. Pixel do Meta: conferir o evento Lead
+O `Lead` do Meta sai direto do `lp.js` (`fbq`), **sem GTM**:
+1. Preencha `LP_CONFIG.metaPixelId` em `lp.js` com o ID do Pixel e publique.
+2. No Gerenciador de Eventos do Meta, abra **Testar eventos**, cole a URL da landing e abra pelo botão do próprio Meta.
+3. Faça a simulação e envie o formulário. Devem aparecer `PageView` e **`Lead`** em poucos segundos. Com a extensão Meta Pixel Helper (Chrome) dá para ver o mesmo na página.
+4. Só depois disso escolha `Lead` como evento de otimização da campanha.
+Eventos da landing no `dataLayer` (para GTM/Google Ads, se usar): `calc_done`, `lead`, `wa_click`, `partner_click`, `lead_send_fail`. A conversão do Google Ads precisa de gtag ou GTM lendo `lead`.
+
+### 6c. Rotina mensal (dia 21 de cada mês)
+O DAS vence no dia 20 e cada pagamento sai do prazo de 5 anos no próprio aniversário. No dia 21, o pagamento mais antigo muda, então:
+1. Rode o servidor local (`python3 -m http.server 8765`) e gere o criativo do mês seguinte: `node criativos/render.js AAAA-MM` (ex.: em 21/11/2026, `node criativos/render.js 2026-12`).
+2. Abra `criativos/prazo-feed-AAAA-MM.png` e `prazo-story-AAAA-MM.png`, confira as datas e troque o criativo no anúncio C do Meta.
+   Faça o mesmo com `planilha-feed-AAAA-MM.png` e `planilha-story-AAAA-MM.png` nos anúncios B-planilha (a planilha mostra as 60 competências dentro do prazo, então também muda todo mês).
+3. No texto do anúncio C, avance o mês de "desde nov/2021" (ex.: vira "desde dez/2021"). Se não for possível manter isso todo mês, use "dos últimos 5 anos".
+4. A landing atualiza sozinha (a janela é calculada pela data do visitante).
