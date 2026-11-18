@@ -12,7 +12,7 @@
 .err:empty{min-height:0;margin:0}
 .teaser.nofig .v{display:none}.teaser.nofig .micro{font-size:.92rem;color:var(--ink);margin:0!important}
 .res .out{font-size:1rem;margin:6px 0 4px}
-.res .row{flex-wrap:wrap;gap:2px 16px}
+.res .row{flex-wrap:wrap;gap:2px 16px}.res .row.tx b{flex:1 1 100%;text-align:left;font-family:var(--sans);font-weight:400;font-size:.84rem;line-height:1.45}
 #waGo{height:auto;min-height:52px;padding:12px 16px;text-align:center;line-height:1.3}
 .next{margin:8px 0 18px 18px;font-size:.92rem;line-height:1.5}.next li{margin-bottom:6px}
 #q_seg button{font-size:.88rem;line-height:1.25}
@@ -24,30 +24,31 @@
 .cols .t{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ac);display:block;margin-bottom:8px}
 .nota{font-size:.82rem;color:var(--gr);margin-top:18px;max-width:720px}
 @media(max-width:900px){.cols{grid-template-columns:1fr}.cols>div{border-right:0;margin:0;padding:18px 0 6px;border-top:1px solid var(--line)}.cols>div:first-child{border-top:0}
- .hero .sub{font-size:.95rem}.bul{display:none}.rr{display:block;margin-top:8px}#q_ano{grid-template-columns:repeat(3,1fr)}.hero .eyebrow{font-size:.66rem}#q_ano button{font-size:.84rem;padding:4px}.hero h1{font-size:1.72rem;line-height:1.12}.hero{gap:14px}.box label,.box .lbl{margin:10px 0 5px}.seg button{min-height:44px}}
+ .hero .sub{font-size:.95rem}.bul{display:none}.rr{display:block;margin-top:8px}#q_reg{grid-template-columns:repeat(3,1fr)}#q_reg button,#q_cp button{font-size:.82rem;padding:4px}.hero .eyebrow{font-size:.66rem}.hero h1{font-size:1.72rem;line-height:1.12}.hero{gap:14px}.box label,.box .lbl{margin:10px 0 5px}.seg button{min-height:40px;padding:4px 6px;font-size:.84rem;line-height:1.15}.seg{gap:6px}.box label,.box .lbl{margin:8px 0 4px;font-size:.76rem}#q_cp{grid-template-columns:repeat(4,1fr)}#q_cp button{font-size:.74rem;padding:2px}.box h3{font-size:1.15rem}.box .bs{margin-bottom:4px}.box input.money{height:44px}.hero h1{font-size:1.6rem}.box .micro{margin-top:6px}}
 @media(min-width:901px){.rr{display:none}}
 </style></head>
-<body data-svc="real" data-disc="Conteúdo informativo, sem garantia de resultado. Cada crédito depende da análise dos documentos.">
+<body data-svc="real" data-disc="Simulação educativa com premissas simplificadas, sem garantia de resultado. Não substitui o cálculo fiscal.">
 <header class="w top"><div class="logo"><span class="lgx" role="img" aria-label="Gera Caixa" style="font-family:'Inter Tight',Inter,sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:-.03em;color:#0E1116;white-space:nowrap"><span style="color:#0F5C4D">Gera</span>Caixa</span></div><a class="wa-link" target="_blank" rel="noopener">Falar no WhatsApp</a></header>
 <main>
 <div class="w hero">
  <div><p class="eyebrow">Lucro Real e Presumido · indústria, varejo e restaurantes</p>
-  <h1>PIS e Cofins acabam em 31/12/2026. <span>Já revisou os últimos 5 anos</span>?</h1>
-  <p class="sub">Em 2027 entra a CBS. No Lucro Real, a lei mantém o saldo de créditos, mas pede que ele esteja escriturado (LC 214/2025, art. 378). No Presumido, pode haver PIS e Cofins pagos a mais para pedir de volta. Em 30 minutos, mostramos o que vale revisar e como a Reforma muda a conta da sua empresa.</p>
-  <p class="rr">Reunião sem custo · honorário só sobre o que for efetivamente recuperado</p>
-  <ul class="bul"><li><b>01</b>Reunião de 30 minutos, sem custo</li><li><b>02</b>Seu contador participa e continua o mesmo</li><li><b>03</b>Honorário só sobre o que for recuperado</li></ul></div>
+  <h1>Em 2027 o PIS e a Cofins viram CBS. <span>Sua empresa paga mais ou menos</span>?</h1>
+  <p class="sub">Simule em 30 segundos com as regras da calculadora que a Receita Federal abriu no GitHub. Depois, em uma reunião de 30 minutos, refazemos a conta com as suas notas e mostramos o que dá para revisar de PIS e Cofins dos últimos 5 anos.</p>
+  <p class="rr">Simulação com as regras da calculadora da Receita · reunião sem custo</p>
+  <ul class="bul"><li><b>01</b>Regras da calculadora oficial da Receita</li><li><b>02</b>Reunião de 30 minutos, sem custo</li><li><b>03</b>Honorário só sobre o que for recuperado</li></ul></div>
  <div class="box" id="box"><div class="prog"><i class="on"></i><i></i><i></i></div>
-  <div class="step on" data-s="1"><h3>Peça o diagnóstico</h3><p class="bs">4 perguntas · cerca de 30 segundos</p>
-   <p class="lbl" id="l_reg">Regime tributário</p><div class="seg" id="q_reg" role="group" aria-labelledby="l_reg" data-v="real"><button type="button" class="on" data-v="real">Lucro Real</button><button type="button" data-v="pres">Lucro Presumido</button></div>
+  <div class="step on" data-s="1"><h3>Simule a Reforma na sua empresa</h3><p class="bs">4 perguntas · cerca de 30 segundos</p>
+   <p class="lbl" id="l_reg">Regime tributário</p><div class="seg" id="q_reg" role="group" aria-labelledby="l_reg" data-v="real"><button type="button" class="on" data-v="real">Lucro Real</button><button type="button" data-v="pres">Lucro Presumido</button><button type="button" data-v="simples">Simples</button></div>
    <p class="lbl" id="l_seg">Atividade da empresa</p><div class="seg" id="q_seg" role="group" aria-labelledby="l_seg" data-v="ind"><button type="button" class="on" data-v="ind">Indústria</button><button type="button" data-v="merc">Mercado ou atacarejo</button><button type="button" data-v="rest">Restaurante ou alimentação</button><button type="button" data-v="outro">Outra</button></div>
    <label for="q_fat">Faturamento mensal médio</label><input id="q_fat" class="money" inputmode="numeric" placeholder="R$ 1.500.000" required>
-   <p class="lbl" id="l_ano">A empresa tem 5 anos ou mais?</p><div class="seg" id="q_ano" role="group" aria-labelledby="l_ano" data-v="sim"><button type="button" class="on" data-v="sim">Sim</button><button type="button" data-v="nao">Menos tempo</button><button type="button" data-v="ns">Não sei</button></div>
-   <div class="err" id="e1" role="alert"></div><button class="btn" type="button" id="toLead">Continuar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><p class="micro">Sem compromisso. Nenhum dado de contato nesta etapa.</p></div>
-  <div class="step" data-s="2"><h3 id="s2h">Falta só o contato</h3><div class="teaser nofig"><div class="v" id="tz"></div><div class="micro" id="tzl"></div></div>
-   <form id="leadF" novalidate><p class="bs" style="margin-top:16px">Com quem falamos para marcar a reunião?</p><input id="hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+   <p class="lbl" id="l_cp">Compras com nota (mercadorias, insumos, serviços) sobre o faturamento</p><div class="seg" id="q_cp" role="group" aria-labelledby="l_cp" data-v="b"><button type="button" data-v="a">Até 30%</button><button type="button" class="on" data-v="b">30 a 50%</button><button type="button" data-v="c">50 a 70%</button><button type="button" data-v="d">Mais de 70%</button></div>
+   <div class="err" id="e1" role="alert"></div><button class="btn" type="button" id="toLead">Simular <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><p class="micro">Sem compromisso. Nenhum dado de contato nesta etapa.</p></div>
+  <div class="step" data-s="2"><h3 id="s2h">Sua simulação está pronta</h3><div class="teaser"><div class="v" id="tz">R$ 000.000</div><div class="micro" id="tzl" style="margin-top:4px"></div></div>
+   <form id="leadF" novalidate><p class="bs" style="margin-top:16px">Para quem enviamos o resultado?</p><input id="hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
    <label for="f_n">Nome</label><input id="f_n" autocomplete="name" required><label for="f_t">WhatsApp</label><input id="f_t" inputmode="tel" autocomplete="tel" placeholder="(11) 90000-0000" required>
-   <label style="display:flex;gap:10px;font-weight:400;align-items:flex-start"><input type="checkbox" id="f_ok" style="width:18px;height:18px;margin-top:2px"> <span>Autorizo o contato e o tratamento dos meus dados, conforme a <a href="privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.</span></label>
-   <div class="err" id="e2" role="alert"></div><button class="btn">Ver próximo passo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><p class="micro">Sem senha nem certificado · resposta em até 1 dia útil</p></form></div>
+   <label for="f_papel">Seu papel na empresa</label><select id="f_papel" style="width:100%;height:48px;border:1px solid #8F8A7E;border-radius:4px;background:#fff;font:inherit;padding:0 10px"><option>Sócio ou diretor</option><option>Financeiro ou fiscal</option><option>Contador externo</option><option>Outro</option></select>
+   <label style="display:flex;gap:10px;font-weight:400;align-items:flex-start;margin-top:14px"><input type="checkbox" id="f_ok" style="width:18px;height:18px;margin-top:2px"> <span>Autorizo o contato e o tratamento dos meus dados, conforme a <a href="privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.</span></label>
+   <div class="err" id="e2" role="alert"></div><button class="btn">Ver minha simulação <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><p class="micro">Sem senha nem certificado · resposta em até 1 dia útil</p></form></div>
   <div class="step res" data-s="3" id="res"></div>
  </div>
 </div>
@@ -68,9 +69,10 @@
 <section class="ink"><div class="w"><p class="eyebrow">Por que este ano</p><h2 class="h2">Depois da virada, a conta fica mais difícil de fechar.</h2>
  <p class="dl">Em <b>1º/01/2027</b> a CBS substitui o PIS e a Cofins. O saldo de créditos continua valendo e pode ser usado contra a CBS, mas a lei fala em crédito <b>escriturado</b>. O que não estiver na EFD-Contribuições até a virada pode dar mais trabalho para aproveitar.</p>
  <p class="dl">O prazo de <b>5 anos</b> também segue correndo: a cada mês, o mês mais antigo sai da janela.</p>
- <div class="steps" style="margin-top:36px"><div><span class="n">01</span><h3>Reunião de 30 minutos</h3><p>Entendemos a operação e rodamos um cenário da sua empresa na calculadora de CBS e IBS disponibilizada pela Receita Federal.</p></div><div><span class="n">02</span><h3>Mapa de créditos</h3><p>Com o SPED e a EFD-Contribuições, conferimos item a item os últimos 5 anos. Você recebe o detalhamento por escrito, sem custo.</p></div><div><span class="n">03</span><h3>Só se houver crédito</h3><p>Escrituração e retificações feitas junto com o seu contador. Honorário: percentual combinado antes, só sobre o que for efetivamente recuperado.</p></div></div>
- <p style="margin-top:28px"><a href="#box" class="btn" data-top style="background:transparent;border:1px solid #C8F169;color:#C8F169">Pedir o diagnóstico <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p></div></section>
+ <div class="steps" style="margin-top:36px"><div><span class="n">01</span><h3>Reunião de 30 minutos</h3><p>Refazemos a simulação com as suas notas, item a item, na Calculadora de Tributos que a Receita Federal publicou em código aberto.</p></div><div><span class="n">02</span><h3>Mapa de créditos</h3><p>Com o SPED e a EFD-Contribuições, conferimos item a item os últimos 5 anos. Você recebe o detalhamento por escrito, sem custo.</p></div><div><span class="n">03</span><h3>Só se houver crédito</h3><p>Escrituração e retificações feitas junto com o seu contador. Honorário: percentual combinado antes, só sobre o que for efetivamente recuperado.</p></div></div>
+ <p style="margin-top:28px"><a href="#box" class="btn" data-top style="background:transparent;border:1px solid #C8F169;color:#C8F169">Simular a Reforma <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p></div></section>
 <section><div class="w"><p class="eyebrow">Perguntas frequentes</p><h2 class="h2">Antes de marcar, o que costumam perguntar.</h2><div class="faq">
+ <details><summary>De onde vêm os números da simulação?</summary><p>As reduções de alíquota por tipo de operação vêm da tabela da Calculadora de Tributos da Receita Federal, publicada em código aberto no GitHub (base V0059). A alíquota oficial da CBS para 2027 ainda não foi fixada; usamos 8,8%, o valor do exemplo da documentação da Receita. O resultado é uma ordem de grandeza, não um cálculo fiscal. O IBS de 2027 (0,1%) e o ICMS/ISS, que continuam, ficam fora da conta.</p></details>
  <details><summary>Meus créditos somem em 31/12/2026?</summary><p>Não. A LC 214/2025 mantém o saldo de PIS e Cofins, que pode ser compensado com a CBS ou ressarcido. O ponto de atenção é que a lei exige o crédito escriturado, e ainda há discussão sobre créditos lançados depois da virada. Por isso a recomendação é revisar e escriturar ainda em 2026.</p></details>
  <details><summary>Quanto custa?</summary><p>A reunião e a conferência não têm custo. Se houver crédito e você decidir seguir, o honorário é um percentual combinado antes, só sobre o que for efetivamente recuperado.</p></details>
  <details><summary>Preciso trocar de contador?</summary><p>Não. O trabalho é feito junto com o seu contador, que valida cada lançamento.</p></details>
@@ -79,8 +81,8 @@
  <details><summary>Minha empresa é do Lucro Presumido. Serve?</summary><p>Sim. No Presumido não há crédito de insumos, mas pode haver PIS e Cofins pagos a mais (produtos monofásicos ou com alíquota zero, ICMS na base de cálculo). E a mudança para a CBS afeta preço e margem, o que vale simular antes.</p></details>
  <details><summary>E se a empresa for do Simples?</summary><p>Para o Simples com produtos monofásicos, use a <a href="lp-tributario.html">simulação do Simples</a>.</p></details>
 </div></div></section>
-<section class="white"><div class="w final"><h2 class="h2" style="margin:0">Ainda dá tempo de revisar em 2026.</h2><a href="#box" class="btn" data-top>Pedir o diagnóstico <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<section class="white"><div class="w final"><h2 class="h2" style="margin:0">Simule agora. Leva 30 segundos.</h2><a href="#box" class="btn" data-top>Simular a Reforma <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
 </main>
 <footer class="w"><p>Conteúdo informativo, sem garantia de resultado. Serviços de consultoria tributária; quando necessária atuação judicial, ela é conduzida por advogados parceiros inscritos na OAB.</p><p style="margin-top:8px">© <span class="cfg-marca"></span> · CNPJ <span class="cfg-cnpj"></span> · <a href="privacidade.html">Política de Privacidade</a></p></footer>
-<div class="stick"><a href="#box" class="btn" data-top>Pedir o diagnóstico</a></div>
+<div class="stick"><a href="#box" class="btn" data-top>Simular a Reforma</a></div>
 <script src="lp.js"></script></body></html>

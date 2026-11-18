@@ -43,7 +43,9 @@ Gancho: PIS e Cofins dão lugar à CBS em 1º/01/2027. O saldo de créditos cont
 **Texto principal:**
 > Quanto a sua empresa vai pagar de CBS em 2027? E o preço de venda, muda?
 >
-> Na reunião, rodamos um cenário da sua empresa na calculadora de CBS e IBS disponibilizada pela Receita Federal e mostramos o que vale revisar de PIS e Cofins antes da virada. 30 minutos, sem custo.
+> A Receita Federal abriu no GitHub o código da calculadora da Reforma. Usamos as regras dela para simular sua empresa em 30 segundos: PIS e Cofins hoje, CBS em 2027.
+>
+> Depois, em uma reunião de 30 minutos, refazemos a conta com as suas notas e mostramos o que vale revisar antes da virada. Sem custo.
 
 **Título:** Sua empresa na conta da Reforma
 **Descrição:** Cenário 2027 + revisão de créditos

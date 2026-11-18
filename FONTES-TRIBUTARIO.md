@@ -203,3 +203,19 @@ Pontos de atenção: comércio (revenda) não tem crédito de "insumo" no sentid
 | ICMS-ST fora da base para quem compra para revender | STJ, Tema 1.125 (conferir a modulação) |
 | "Com a CBS, o cálculo passa a ter créditos sobre as compras" | LC 214/2025 (CBS não cumulativa) |
 | Pedido de volta dos últimos 5 anos | CTN, arts. 165 e 168 (ver §1) |
+
+### Simulador da Reforma (lp-real.html)
+Fonte das regras: **Calculadora de Tributos da Receita Federal**, publicada em código aberto (licença MIT) pela Portaria COTEC 342, DOU de 13/11/2026.
+- Regime regular: https://github.com/ReceitaFederal/calculadora-rtc-regime-regular (versão 1.6.1, base de dados V0059, conferida no código em 18/11/2026)
+- Simples Nacional: https://github.com/ReceitaFederal/calculadora-rtc-simples-nacional
+
+| O que o simulador usa | De onde vem |
+|---|---|
+| Redução de 40% para bares e restaurantes | Tabela da calculadora, cClassTrib 200047 |
+| Redução de 60% para alimentos do Anexo VII | Tabela da calculadora, cClassTrib 200034 |
+| Alíquota zero da cesta básica | Tabela da calculadora (redução de 100%) |
+| CBS de 8,8% em 2027 | **Não é oficial.** É o valor usado no exemplo da documentação da calculadora (`docs/exemplos.md`). A tabela oficial só traz as alíquotas de teste de 2026 (CBS 0,9% e IBS 0,1%) |
+| PIS/Cofins hoje: 3,65% (Presumido) e 9,25% com créditos (Real) | Lei 9.718/1998; Leis 10.637/2002 e 10.833/2003 |
+| Mix de vendas do mercado (50% alimentos reduzidos, 15% cesta básica) e crédito sobre as compras na mesma alíquota efetiva | **Premissa nossa**, mostrada ao visitante no resultado |
+
+Quando a alíquota oficial da CBS for fixada, trocar o valor `CBS=.088` em `lp.js` (função `real`).

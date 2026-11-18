@@ -73,12 +73,22 @@ const CALC={
  inv(){const pat=num($('#q_pat').value),ap=num($('#q_ap').value),onde=$('#q_onde').dataset.v||'poup';const n=180,rb=Math.pow(1.10,1/12)-1,rp=Math.pow(1.065,1/12)-1;let a=pat,b=pat;for(let k=0;k<n;k++){a=a*(1+rb)+ap;b=b*(1+rp)+ap}
   const p=Math.min(100,(pat>=1e6?50:pat>=3e5?40:pat>=5e4?25:10)+(onde==='poup'?30:onde==='banco'?25:10)+(ap>=2000?15:5));
   return {valor:a-b,linhas:[['Em 15 anos, carteira a 10% a.a.',brl(a)],['Mesmo valor a 6,5% a.a. (poupança/banco)',brl(b)]],pontos:p,resumo:`patrimônio ${brl(pat)}, aporte ${brl(ap)}/mês, hoje em ${onde}`,rotulo:'de diferença em 15 anos (simulação)'}},
- real(){const fat=num($('#q_fat').value),seg=$('#q_seg').dataset.v||'ind',ano=$('#q_ano').dataset.v||'sim',pres=($('#q_reg')?.dataset.v||'real')==='pres',RG=pres?'Lucro Presumido':'Lucro Real';
-  const SL={ind:'indústria',merc:'mercado ou atacarejo',rest:'restaurante ou alimentação',outro:'outra atividade'}[seg],AL={sim:'5 anos ou mais',nao:'menos de 5 anos',ns:'tempo a confirmar'}[ano];
-  const p=Math.min(100,(fat>=3e6?50:fat>=1e6?40:fat>=3e5?28:12)+(seg==='outro'?12:25)+(ano==='sim'?25:ano==='ns'?15:10));
-  return {valor:0,outro:true,real:true,seg:SL,reg:RG,linhas:[['Regime',RG],['Atividade',SL],['Faturamento médio',brl(fat)+'/mês'],['Tempo de empresa',AL]],pontos:p,
-   resumo:`${RG} (${AL}), ${SL}, faturamento ${brl(fat)}/mês`,
-   rotulo:ano==='nao'?'Dá para revisar o período desde a abertura da empresa. Vale a conversa.':'Pelo perfil, vale a reunião: dá para revisar até 5 anos de PIS e Cofins antes da virada para a CBS.'}},
+ /* Lucro Real e Presumido: PIS/Cofins hoje x CBS em 2027.
+    Reduções de alíquota por classificação tributária: tabela da Calculadora de Tributos da Receita Federal
+    (github.com/ReceitaFederal/calculadora-rtc-regime-regular, base V0059): 000001 integral 0% · 200047 bares e restaurantes 40% ·
+    200034 alimentos do Anexo VII 60% · cesta básica 100%. A alíquota da CBS de 2027 ainda não está na tabela oficial:
+    usamos 8,8%, o valor do exemplo da documentação da Receita. Tudo é premissa, mostrada ao visitante. */
+ real(){const fat=num($('#q_fat').value),seg=$('#q_seg').dataset.v||'ind',pres=($('#q_reg')?.dataset.v||'real')==='pres',RG=pres?'Lucro Presumido':'Lucro Real';
+  const cp={a:.2,b:.4,c:.6,d:.8}[$('#q_cp').dataset.v||'b'],CBS=.088;
+  const A={ind:['indústria',0,'tributação integral'],merc:['mercado ou atacarejo',.45,'cerca de metade das vendas em alimentos com redução de 60% e 15% em cesta básica (alíquota zero)'],rest:['restaurante ou alimentação',.4,'redução de 40% de bares e restaurantes'],outro:['outra atividade',0,'tributação integral']}[seg];
+  const hoje=pres?fat*.0365:Math.max(0,fat*(1-cp)*.0925),cbs=fat*(1-cp)*CBS*(1-A[1]),dif=(cbs-hoje)*12,mais=dif>0;
+  const p=Math.min(100,(fat>=3e6?50:fat>=1e6?42:fat>=3e5?28:10)+(seg==='outro'?10:20)+(Math.abs(dif)>=1e5?15:5));
+  const k=x=>brl(Math.round(x/100)*100);
+  return {valor:Math.round(Math.abs(dif)/1000)*1000,real:true,mais,seg:A[0],reg:RG,fat,pontos:p,
+   linhas:[['PIS e Cofins hoje (estimado)','~'+k(hoje)+'/mês'],['CBS em 2027 (simulada)','~'+k(cbs)+'/mês'],
+    ['Supomos',`${pres?'3,65% sobre a receita, sem créditos':'9,25% com crédito sobre as compras'} hoje · CBS de 8,8% (valor de exemplo da Receita; a alíquota oficial de 2027 ainda não foi fixada) · ${A[2]} · compras com nota em ${Math.round(cp*100)}% do faturamento, gerando crédito`,1]],
+   resumo:`${RG}, ${A[0]}, faturamento ${brl(fat)}/mês, compras ~${Math.round(cp*100)}%, simulação: CBS ${mais?'acima':'abaixo'} do PIS/Cofins em ~${k(Math.abs(dif))}/ano`,
+   rotulo:`${mais?'a mais':'a menos'} por ano com a CBS, pela simulação`}},
  emp(){const fat=num($('#q_fat').value),mg=num($('#q_mg').value),dor=$('#q_dor').dataset.v||'margem';const ganho=fat*12*Math.min(.05,Math.max(.02,(15-mg)/100*.3));
   const p=Math.min(100,(fat>=4e5?45:fat>=1e5?32:12)+(dor==='sucessao'||dor==='socios'?30:22)+(mg<10?20:10));
   return {valor:ganho,linhas:[['Faturamento anual',brl(fat*12)],['Margem líquida atual',mg+'%']],pontos:p,resumo:`faturamento ${brl(fat)}/mês, margem ${mg}%, dor ${dor}`,rotulo:'de ganho anual possível com gestão (estimativa)'}}};
@@ -101,6 +111,7 @@ if(S==='trib'&&qOut){const og=$('#q_outg'),om=$('#q_outm'),tl=$('#toLeadT');
 /* Enter em qualquer campo da etapa 1 = simular */
 $$('.step[data-s="1"] input').forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('#toLead').click()}}));
 $('#toLead').onclick=()=>{const e1=$('#e1');const req=$$('.step[data-s="1"] input[required]').find(i=>!num(i.value));if(req){inv(req,'e1','Preencha os valores para calcular.');return}
+  if(S==='real'&&$('#q_reg')?.dataset.v==='simples'){inv($('#q_reg'),'e1','Esta simulação é para Lucro Real e Presumido. Para o Simples, use a <a href="lp-tributario.html">simulação do Simples</a>.',1,$('#q_reg button'));return}
   if(S==='trib'&&$('#q_seg')&&!$('#q_seg').dataset.v){const g=$('#q_seg');if(g.closest('[hidden]'))g.closest('[hidden]').hidden=false;inv(g,'e1','Escolha uma opção: a empresa vende algum destes produtos?',0,g.querySelector('button'));return}
   if(S==='trib'&&qOut&&$('#q_seg').dataset.v==='outro'&&!qOut.dataset.v){inv(qOut,'e1','Responda se a empresa vende algum destes produtos.',0,qOut.querySelector('button'));return}
   if(S==='trib'){const lm=limTrib();if(lm){inv($('#q_fat'),'e1',lm,1);track('calc_bound');const l=$('#e1wa');l&&(l.onclick=()=>track('wa_click',{from:'bound'}));return}}
@@ -143,9 +154,10 @@ $('#leadF').onsubmit=async e=>{e.preventDefault();if($('#hp').value)return; // s
   track('lead',{tier,...(ang?{ang}:{})});
   if(SBU()){const falhou=s=>{track('lead_send_fail',{status:s||0});if(reQ(s)){fila.add(lead);setTimeout(flush,1e4)}};
     try{const rs=await postLead(lead);if(!rs.ok&&rs.status!==409)falhou(rs.status)}catch(err){falhou(0)}}
-  if(S==='real'){ // Lucro Real: sem valor, só o próximo passo (reunião)
-    const msg=`Olá! Sou ${n}. Vi a página sobre créditos de PIS/Cofins (${R.reg}, ${R.seg}, faturamento ${R.linhas[2][1]}). Quero marcar a reunião de 30 minutos. Protocolo ${prot}.`;
-    $('#res').innerHTML=`<h3 id="resH" tabindex="-1">Próximo passo</h3><p class="out">${R.rotulo}</p>${R.linhas.map(l=>`<div class="row"><span>${l[0]}</span><b>${l[1]}</b></div>`).join('')}<p class="eyebrow" style="margin-top:18px">O que acontece agora</p><ol class="next"><li>Você manda a mensagem pronta no WhatsApp.</li><li>Respondemos em até 1 dia útil com horários para a reunião.</li><li>Na reunião, você vê o que vale revisar antes de decidir qualquer coisa.</li></ol><a class="btn" id="waGo" target="_blank" rel="noopener" href="${wa(msg)}">Marcar a reunião no WhatsApp</a><p class="micro" style="margin-top:8px">A mensagem já vai pronta · reunião sem custo · protocolo <b>${prot}</b></p><p class="micro">${document.body.dataset.disc}</p>`;
+  if(S==='real'){ // Lucro Real e Presumido: simulação CBS x PIS/Cofins e convite para a reunião
+    const papel=$('#f_papel')?.value||'';if(papel){lead.quiz.papel=papel;lead.mensagem+=`, contato: ${papel}`}
+    const msg=`Olá! Sou ${n}${papel?' ('+papel+')':''}. Fiz a simulação da Reforma no site (${R.reg}, ${R.seg}, faturamento ${brl(R.fat)}/mês): CBS cerca de ${brl(R.valor)} ${R.mais?'a mais':'a menos'} por ano que o PIS/Cofins de hoje. Quero marcar a reunião de 30 minutos. Protocolo ${prot}.`;
+    $('#res').innerHTML=`<h3 id="resH" tabindex="-1">Sua simulação</h3><div class="big">~${brl(R.valor)}</div><p class="micro" style="margin-top:0;text-align:left">${R.rotulo}</p>${R.linhas.map(l=>`<div class="row${l[2]?' tx':''}"><span>${l[0]}</span><b>${l[1]}</b></div>`).join('')}<p class="eyebrow" style="margin-top:18px">Na reunião de 30 minutos</p><ol class="next"><li>Refazemos esta conta com as suas notas, na calculadora oficial da Receita.</li><li>Mostramos o que dá para revisar de PIS e Cofins dos últimos 5 anos.</li><li>Você decide depois. A reunião não tem custo.</li></ol><a class="btn" id="waGo" target="_blank" rel="noopener" href="${wa(msg)}">Marcar a reunião no WhatsApp</a><p class="micro" style="margin-top:8px">A mensagem já vai pronta · resposta em até 1 dia útil · protocolo <b>${prot}</b></p><p class="micro">${document.body.dataset.disc}</p>`;
   }else if(S==='trib'){ // tributário: faixa (ou próximo passo, em "outro"), mensagem pronta e envio ao contador
     const fx=R.outro?'':faixa(R);let msg,share;
     if(R.outro){msg=`Olá! Sou ${n}. Fiz a simulação tributária no site (${R.seg}, ${R.reg}). ${R.sim?'A empresa vende alguns produtos monofásicos (medicamentos, cosméticos, autopeças ou bebidas).':'Pelo que sei, a empresa não vende produtos monofásicos.'} Quero que um especialista confirme. Protocolo ${prot}.`;
