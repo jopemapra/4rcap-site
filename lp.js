@@ -3,7 +3,7 @@
    Este arquivo é compartilhado por lp-tributario, lp2-tributario, lp-leilao, lp-investimentos e lp-empresarial:
    tudo que é específico de uma página fica condicionado a S==='trib' ou à existência do elemento. */
 const LP_CONFIG={ // use os MESMOS valores do CONFIG em app.js
-  marca:'4RCAP', whatsapp:'5500000000000', cnpj:'46.131.513/0001-32',
+  marca:'Gera Caixa', whatsapp:'5500000000000', cnpj:'46.131.513/0001-32',
   waParceiro:'', // WhatsApp separado para contadores (opcional; vazio = usa o principal)
   supabaseUrl:'', supabaseAnonKey:'',
   gtmId:'', metaPixelId:'', // ex.: 'GTM-XXXXXXX' / '123456789012345'; vazios = nada é carregado
@@ -149,9 +149,9 @@ $('#leadF').onsubmit=async e=>{e.preventDefault();if($('#hp').value)return; // s
   }else if(S==='trib'){ // tributário: faixa (ou próximo passo, em "outro"), mensagem pronta e envio ao contador
     const fx=R.outro?'':faixa(R);let msg,share;
     if(R.outro){msg=`Olá! Sou ${n}. Fiz a simulação tributária no site (${R.seg}, ${R.reg}). ${R.sim?'A empresa vende alguns produtos monofásicos (medicamentos, cosméticos, autopeças ou bebidas).':'Pelo que sei, a empresa não vende produtos monofásicos.'} Quero que um especialista confirme. Protocolo ${prot}.`;
-      share=`Fiz uma simulação tributária no site da 4RCAP (${R.seg}, ${R.reg}). Vale a gente conferir se há produtos monofásicos nas vendas? Protocolo ${prot}.`}
+      share=`Fiz uma simulação tributária no site da Gera Caixa (${R.seg}, ${R.reg}). Vale a gente conferir se há produtos monofásicos nas vendas? Protocolo ${prot}.`}
     else{msg=`Olá! Sou ${n}. Fiz a simulação tributária no site (${R.seg}, ${R.reg}): estimativa de ${fx}. Protocolo ${prot}. Quero entender o próximo passo.`;
-      share=`Fiz uma simulação tributária no site da 4RCAP (${R.seg}, ${R.reg}): pode haver de ${fx} pagos a mais nos últimos 60 meses (estimativa). Protocolo ${prot}. Vale a gente conferir?`}
+      share=`Fiz uma simulação tributária no site da Gera Caixa (${R.seg}, ${R.reg}): pode haver de ${fx} pagos a mais nos últimos 60 meses (estimativa). Protocolo ${prot}. Vale a gente conferir?`}
     $('#res').innerHTML=`<h3 id="resH" tabindex="-1">${R.outro?'Próximo passo':'Sua estimativa'}</h3>${R.outro?`<p class="out">${R.rotulo}</p>`:`<div class="big rg">${fx}</div><p class="micro" style="margin-top:0;text-align:left">${R.rotulo}</p>`}${R.linhas.map(l=>`<div class="row${l[2]?' tx':''}"><span>${l[0]}</span><b>${l[1]}</b></div>`).join('')}<p class="eyebrow" style="margin-top:18px">O que acontece agora</p><ol class="next"><li>Você manda a mensagem pronta no WhatsApp.</li><li>Respondemos em até 1 dia útil e dizemos quais arquivos separar.</li><li>Você recebe o detalhamento por mês antes de decidir qualquer coisa.</li></ol><a class="btn" id="waGo" target="_blank" rel="noopener" href="${wa(msg)}">${R.outro?'Falar no WhatsApp com um especialista':'Falar no WhatsApp com minha estimativa'}</a><p class="micro" style="margin-top:8px">A mensagem já vai pronta · conferir não tem custo · honorário só sobre o recuperado</p><a class="lk" id="shareCt" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(share)}">${R.outro?'Mandar para o meu contador':'Mandar esta estimativa para o meu contador'}</a><p class="micro">Protocolo <b>${prot}</b> · Atendimento seg a sex, 9h às 18h</p><p class="micro">${document.body.dataset.disc}</p>`;
     $('#shareCt').onclick=()=>track('share_contador');
   }else{
@@ -176,7 +176,7 @@ const ANG=S==='trib'&&window.LP_ANG&&typeof window.LP_ANG==='object'?window.LP_A
 if(ANG){if(ANG.ang==='B'&&$('#q_reg'))pick($('#q_reg'),'simples');if(ANG.seg&&$('#q_seg'))pick($('#q_seg'),ANG.seg)}
 $('#q_alt')?.addEventListener('click',()=>{$$('.qg').forEach(g=>g.hidden=false);const p=$('#q_pre');p&&(p.hidden=true);const bs=$('#q_bs');bs&&(bs.textContent='3 perguntas · cerca de 30 segundos');($('#q_reg button.on')||$('#q_reg button'))?.focus()});
 /* tributário: caminho secundário para contadores */
-const parc=$('#parc');if(parc){parc.href=wa(`Olá! Sou contador(a) e quero entender a parceria da 4RCAP para clientes do Simples. Protocolo 4R-P-${Math.random().toString(36).slice(2,6).toUpperCase()}.`,LP_CONFIG.waParceiro);parc.onclick=()=>track('partner_click',ANG&&ANG.ang?{ang:ANG.ang}:{})}
+const parc=$('#parc');if(parc){parc.href=wa(`Olá! Sou contador(a) e quero entender a parceria da Gera Caixa para clientes do Simples. Protocolo 4R-P-${Math.random().toString(36).slice(2,6).toUpperCase()}.`,LP_CONFIG.waParceiro);parc.onclick=()=>track('partner_click',ANG&&ANG.ang?{ang:ANG.ang}:{})}
 /* reenvia leads que ficaram na fila: ao carregar e quando a conexão volta */
 flush();addEventListener('online',flush);
 track('view',ANG&&ANG.ang?{ang:ANG.ang}:{});go(1);

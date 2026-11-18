@@ -1,4 +1,4 @@
-/* 4RCAP · direção visual v2: paper/ink + verde-petróleo, Inter Tight, mono para números. Sem gradientes, sombras ou emojis. Carregado depois de style.css. */
+/* Gera Caixa · direção visual v2: paper/ink + verde-petróleo, Inter Tight, mono para números. Sem gradientes, sombras ou emojis. Carregado depois de style.css. */
 :root,html[data-theme=light]{--bg:#F6F4EF;--bg2:#FFFFFF;--card:#FFFFFF;--card2:#F1EEE7;--line:#DAD6CC;--txt:#0E1116;--mut:#4A4F57;--gold:#0F5C4D;--gold2:#0F5C4D;--ac:#0F5C4D;--ach:#0B4A3E;--sig:#C8F169;--ok:#1F7A5A;--warn:#B7791F;--bad:#B42318;--shadow:none;--r:6px;--serif:"Inter Tight","Inter",system-ui,sans-serif;--sans:"Inter",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace}
 html[data-theme=dark]{--bg:#0E1116;--bg2:#15181E;--card:#15181E;--card2:#1C2027;--line:#2A2F37;--txt:#EDEBE6;--mut:#9BA0A8;--gold:#9BD9C5;--gold2:#9BD9C5;--ac:#0F5C4D;--ach:#146E5D;--sig:#C8F169;--shadow:none}
 body{font-size:17px}

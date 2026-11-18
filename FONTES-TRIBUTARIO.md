@@ -150,7 +150,7 @@ https://normas.receita.fazenda.gov.br/sijut2consulta/link.action?idAto=153636
 ### Premissas do simulador para Lucro Presumido e Lucro Real · *premissas internas, a validar*
 - Alíquotas de PIS e Cofins: 0,65% + 3% = 3,65% no Presumido (cumulativo, Lei 9.718/1998) e 1,65% + 7,6% = 9,25% no Real (não cumulativo, Lei 10.637/2002, art. 2º, e Lei 10.833/2003, art. 2º) · *a conferir*
 - Alíquota zero na revenda de produtos monofásicos pelo varejo/atacado: Lei 10.147/2000, art. 2º (medicamentos e perfumaria), e as leis específicas de autopeças (Lei 10.485/2002) e bebidas (Lei 13.097/2015) · *a conferir*
-- Participação dos monofásicos na receita: 18% (segmentos com monofásico) e 8% (mercado). São premissas internas da 4RCAP para a estimativa, **não** dados oficiais; ajustar quando houver base de clientes.
+- Participação dos monofásicos na receita: 18% (segmentos com monofásico) e 8% (mercado). São premissas internas da Gera Caixa para a estimativa, **não** dados oficiais; ajustar quando houver base de clientes.
 - O resultado é rotulado "Estimativa para os últimos 60 meses", nunca "teto": a participação real pode ser maior ou menor.
 
 ## 7. Insumos no Lucro Real (para quando atender esse público)

@@ -1,6 +1,6 @@
 /* ===== CONFIGURAÇÃO CENTRAL — troque aqui nome, contatos e modo ===== */
 const CONFIG={
-  marca:'4RCAP',                  // marca definida em 01/11/2026 (4 frentes, 4 R → Retorno)
+  marca:'Gera Caixa',                  // marca: Gera Caixa (trocada em 18/11/2026)
   cnpj:'46.131.513/0001-32',
   whatsapp:'5500000000000',       // DDI+DDD+número, só dígitos
   telefone:'(00) 00000-0000',
@@ -32,7 +32,7 @@ $$('.brand').forEach(e=>e.textContent=CONFIG.marca);
 $$('.cfg-cnpj').forEach(e=>e.textContent=CONFIG.cnpj);
 $$('.cfg-tel').forEach(e=>e.textContent=CONFIG.telefone);
 $$('.cfg-mail').forEach(e=>e.textContent=CONFIG.email);
-document.title=document.title.replace('Patrimonium',CONFIG.marca).replace('4RCAP',CONFIG.marca);
+document.title=document.title.replace('Patrimonium',CONFIG.marca).replace('Gera Caixa',CONFIG.marca);
 $('#ano').textContent=new Date().getFullYear();
 ['#waFab','#waSticky'].forEach(s=>$(s).href=waLink(`Olá! Vim pelo site da ${CONFIG.marca} e gostaria de um diagnóstico.`));
 

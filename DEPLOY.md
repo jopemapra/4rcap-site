@@ -2,7 +2,7 @@
 
 ## 1. Personalizar (5 minutos)
 Abra `app.js` e edite o bloco `CONFIG` no topo do arquivo:
-- `marca`: **4RCAP** (definido em 01/11/2026). Conceito: 4 frentes, 4 R (Recuperar, Render, Reestruturar, Realizar valor) e 1 resultado: Retorno. Slogan: "4 frentes. 1 resultado: retorno." Antes de investir na marca, registre no INPI (classes 35 e 36) e compre 4rcap.com.br.
+- `marca`: **Gera Caixa** (definido em 01/11/2026). Conceito: 4 frentes, 4 R (Recuperar, Render, Reestruturar, Realizar valor) e 1 resultado: Retorno. Slogan: "4 frentes. 1 resultado: retorno." Antes de investir na marca, registre no INPI (classes 35 e 36) e compre geracaixa.com.br.
 - `whatsapp`: número com DDI e DDD, só dígitos (ex.: `5511999998888`)
 - `telefone` e `email`
 - `assessor`, `credencial` e `intermediario`: seu nome, o número da certificação ANCORD e o nome da corretora ou distribuidora à qual você é vinculado. **Obrigatório** pela Res. CVM 178 antes de divulgar a assessoria de investimentos. Coloque também o logotipo da corretora ao lado do seu, conforme o contrato e o manual de marca dela.

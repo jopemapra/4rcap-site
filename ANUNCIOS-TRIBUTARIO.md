@@ -55,7 +55,7 @@ Posicionamentos: Feed e Stories do Instagram, Feed do Facebook. Nos Stories, o M
 **Título:** Quanto sua empresa pode recuperar? `(34/40)`  
 **Descrição:** Simulação sem custo `(19/30)`  
 **Botão:** Simular / Saiba mais  
-**Criativo sugerido:** fundo off-white, texto grande "Imposto pago a mais é caixa parado." com "caixa parado" marcado em verde-limão e o logotipo 4RCAP no canto. Sem foto de banco de imagem.  
+**Criativo sugerido:** fundo off-white, texto grande "Imposto pago a mais é caixa parado." com "caixa parado" marcado em verde-limão e o logotipo Gera Caixa no canto. Sem foto de banco de imagem.  
 **Link:** `https://[domínio a confirmar]/lp-tributario.html?utm_source=meta&utm_medium=paid_social&utm_campaign=tributario&utm_content=A-caixa-parado`
 
 ### Versão B: "monofásico" (segmento específico, costuma ser a mais barata por lead)
@@ -149,7 +149,7 @@ Contagem feita por código (limite do Google: 30 caracteres por título, 90 por 
 12. Base Legal: Art. 165 do CTN `(27/30)`
 13. Prazo de 5 Anos por Pagamento `(29/30)`
 14. Simule Sua Estimativa Agora `(27/30)`
-15. 4RCAP Recuperação Tributária `(28/30)`
+15. Gera Caixa Recuperação Tributária `(28/30)`
 
 **Fixação:** deixe os títulos **sem fixar** (o Google combina melhor). Se quiser fixar algo no grupo `B-monofasico`, fixe só o título 4 ("Monofásico no Simples Nacional") na posição 1. Não fixe "Recupere Impostos Pagos a Mais" na posição 1.
 
@@ -191,7 +191,7 @@ Só ativar quando a landing tiver uma seção própria para Lucro Real. Texto ap
 4. Insumos: REsp 1.221.170/PR `(26/30)`
 5. Conferência Item a Item `(23/30)`
 6. Seu Contador Continua o Mesmo `(29/30)`
-7. 4RCAP Recuperação Tributária `(28/30)`
+7. Gera Caixa Recuperação Tributária `(28/30)`
 
 **Descrições**
 1. STJ, Temas 779 e 780: insumo se mede pela essencialidade ou relevância para a atividade. `(88/90)`

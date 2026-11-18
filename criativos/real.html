@@ -26,11 +26,12 @@ body.feed{height:1350px}body.story{height:1920px}
 #data .d{position:absolute;left:72px;top:190px;font:800 236px/0.92 "Inter Tight";letter-spacing:-.05em;color:var(--sig)}
 #data .d small{display:block;font-size:236px}
 #data .t{position:absolute;left:80px;top:700px;right:80px;font:700 76px/1.05 "Inter Tight";letter-spacing:-.03em}
-#data .s{position:absolute;left:80px;top:960px;right:110px;font:400 38px/1.35 Inter;color:#C9CDD2}
+#data .s{position:absolute;left:80px;top:930px;right:110px;font:400 38px/1.35 Inter;color:#C9CDD2}
 #data .s b{color:var(--paper);font-weight:600}
+#data .sg{position:absolute;left:80px;top:1130px;font:500 26px "IBM Plex Mono";letter-spacing:.04em;text-transform:uppercase;color:var(--sig);border:2px solid var(--sig);padding:12px 18px;border-radius:6px}
 #data .brand{left:80px;bottom:80px;color:var(--paper)}#data .brand i{color:var(--sig)}
 #data .tag{position:absolute;right:80px;bottom:84px;font:500 24px "IBM Plex Mono";color:#9AA0A6}
-body.story #data .eb{top:290px}body.story #data .d{top:400px}body.story #data .t{top:920px}body.story #data .s{top:1190px}
+body.story #data .eb{top:290px}body.story #data .d{top:400px}body.story #data .t{top:920px}body.story #data .s{top:1190px}body.story #data .sg{top:1400px}
 body.story #data .brand{bottom:400px}body.story #data .tag{bottom:404px}
 
 /* moldura de "print" usada por chat, comparativo e lista */
@@ -42,6 +43,10 @@ body.story .scr{left:119px;top:590px;height:1200px;transform:scale(.78);transfor
 body.story .leg{bottom:345px;text-align:center;color:#8b939c;left:60px;right:60px}
 body.feed .leg{display:none}
 
+/* TikTok: área livre menor (legenda embaixo ~480px, ícones à direita ~140px) */
+body.tiktok .cap{top:170px;right:170px;font-size:62px}body.tiktok .scr{left:90px;top:440px;transform:scale(.74)}body.tiktok .leg{bottom:auto;top:1345px;left:90px;right:190px;text-align:left}
+body.tiktok #data .eb{top:170px}body.tiktok #data .d{top:260px}body.tiktok #data .t{top:770px;right:170px;font-size:68px}body.tiktok #data .s{top:1010px;right:190px;font-size:34px}
+body.tiktok #data .sg{top:1240px}body.tiktok #data .brand{bottom:auto;top:1330px}body.tiktok #data .tag{bottom:auto;top:1344px;right:auto;left:330px}
 /* 2. CHAT */
 #chat .scr{background:#F3F2EE;display:flex;flex-direction:column}
 .ch-h{display:flex;align-items:center;gap:24px;padding:30px 40px;background:#fff;border-bottom:1px solid var(--line)}
@@ -84,16 +89,17 @@ td.ok{color:#5f6368}td small{display:block;font-size:22px;color:#5f6368;margin-t
 <section class="v" id="data">
   <div class="eb">Lucro Real · PIS e Cofins</div>
   <div class="d disp">31/12<small>2026</small></div>
-  <div class="t">É o último dia do PIS e da Cofins.</div>
+  <div class="t">É o último dia do<br>PIS e da Cofins.</div>
   <div class="s">Em 2027 entra a CBS. <b>Os créditos dos últimos 5 anos da sua empresa já foram conferidos e escriturados?</b></div>
-  <div class="brand"><i>4R</i>CAP</div><div class="tag">reunião de 30 min · sem custo</div>
+  <div class="sg">Indústria · Mercado · Atacarejo · Restaurante</div>
+  <div class="brand"><i>Gera</i>Caixa</div><div class="tag">reunião de 30 min · sem custo</div>
 </section>
 
 <!-- 2. CHAT -->
 <section class="v pr" id="chat">
   <div class="cap">Indústria no Lucro Real?<small>A pergunta deste fim de ano.</small></div>
   <div class="scr">
-    <div class="ch-h"><div class="av">4R</div><div><b>4RCAP · Tributário</b><span>exemplo ilustrativo</span></div></div>
+    <div class="ch-h"><div class="av">GC</div><div><b>Gera Caixa · Tributário</b><span>exemplo ilustrativo</span></div></div>
     <div class="ch-b">
       <div class="sys">Conversa ilustrativa</div>
       <div class="m out">Somos indústria no Lucro Real. Com a CBS em 2027, o que acontece com os nossos créditos de PIS e Cofins?<time>09:12</time></div>
@@ -104,7 +110,7 @@ td.ok{color:#5f6368}td small{display:block;font-size:22px;color:#5f6368;margin-t
       <div class="m in">A reunião e a conferência não têm custo. Honorário só sobre o que for efetivamente recuperado.<time>09:14</time></div>
     </div>
   </div>
-  <div class="leg">Imagem ilustrativa · sem garantia de resultado · 4RCAP</div>
+  <div class="leg">Imagem ilustrativa · sem garantia de resultado · Gera Caixa</div>
 </section>
 
 <!-- 3. COMPARATIVO -->
@@ -132,7 +138,7 @@ td.ok{color:#5f6368}td small{display:block;font-size:22px;color:#5f6368;margin-t
     <div class="mk" id="mk">resolver antes de 31/12</div>
     </div>
   </div>
-  <div class="leg">Imagem ilustrativa · sem garantia de resultado · 4RCAP</div>
+  <div class="leg">Imagem ilustrativa · sem garantia de resultado · Gera Caixa</div>
 </section>
 
 <!-- 4. LISTA -->
@@ -151,15 +157,15 @@ td.ok{color:#5f6368}td small{display:block;font-size:22px;color:#5f6368;margin-t
     <div class="li"><span class="bx"></span>Gás e energia da cozinha</div>
     <div class="li"><span class="bx"></span>Bebidas monofásicas tributadas de novo</div>
     <p>Em 2027 entra a CBS. O que der crédito precisa estar <b>escriturado</b>.</p>
-    <div class="brand" style="left:64px;top:1230px"><i>4R</i>CAP</div><div class="mono" style="position:absolute;right:64px;top:1244px;font-size:24px;color:#5B6168">reunião de 30 min · sem custo</div>
+    <div class="brand" style="left:64px;top:1230px"><i>Gera</i>Caixa</div><div class="mono" style="position:absolute;right:64px;top:1244px;font-size:24px;color:#5B6168">reunião de 30 min · sem custo</div>
   </div>
-  <div class="leg">Imagem ilustrativa · cada item depende de análise · 4RCAP</div>
+  <div class="leg">Imagem ilustrativa · cada item depende de análise · Gera Caixa</div>
 </section>
 
 <script>
 const q=new URLSearchParams(location.search),c=q.get('c')||'data',f=q.get('f')||'feed';
-document.body.className=f;document.getElementById(c).classList.add('on');
-if(c==='comparativo'){const t=document.getElementById('cq'),g=t.closest('div').getBoundingClientRect(),r=t.getBoundingClientRect(),k=f==='story'?1/.78:1;
+document.body.className=f==='tiktok'?'story tiktok':f;document.getElementById(c).classList.add('on');
+if(c==='comparativo'){const t=document.getElementById('cq'),g=t.closest('div').getBoundingClientRect(),r=t.getBoundingClientRect(),k=f==='story'?1/.78:f==='tiktok'?1/.74:1;
  const ring=document.getElementById('ring'),mk=document.getElementById('mk');
  ring.style.width=(r.width*k+50)+'px';ring.style.height=(r.height*k+50)+'px';ring.style.left=((r.left-g.left)*k-25)+'px';ring.style.top=((r.top-g.top)*k-25)+'px';
  mk.style.left=((r.left-g.left)*k-10)+'px';mk.style.top=((r.top-g.top)*k+r.height*k+150)+'px';}

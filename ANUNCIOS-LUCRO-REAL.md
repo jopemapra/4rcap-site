@@ -77,6 +77,17 @@ Gancho: PIS e Cofins dão lugar à CBS em 1º/01/2027. O saldo de créditos cont
 - **Leitura:** lead de Lucro Real é mais caro que o do Simples. Olhe o custo por reunião marcada, não só o custo por lead.
 - **Até quando rodar:** até 31/12/2026. Em janeiro o criativo R1 perde o sentido; os demais precisam de novo texto ("a CBS já entrou").
 
+## TikTok Ads
+- **Criativos:** use os arquivos `criativos/real-*-tiktok.png` (1080x1920). O conteúdo fica mais alto e mais à esquerda, livre da legenda e dos ícones do TikTok.
+- **Formato:** o TikTok aceita imagem (anúncio de imagem ou carrossel). Um carrossel com R1, R3 e R4 nessa ordem costuma render mais que imagem solta.
+- **Textos:** os mesmos de cima, com o texto principal cortado para até 100 caracteres. Sugestões:
+  - R1: `31/12 é o último dia do PIS e da Cofins. Lucro Real: já conferiu seus créditos?`
+  - R2: `Indústria no Lucro Real: créditos de PIS e Cofins para conferir antes da CBS.`
+  - R3: `Quanto sua empresa paga de CBS em 2027? Rodamos o cenário em 30 minutos.`
+  - R4: `Mercado ou restaurante no Lucro Real? A lista para fechar antes de 2027.`
+- **Links:** os mesmos, trocando `utm_source=meta&utm_medium=paid_social` por `utm_source=tiktok&utm_medium=paid_social`.
+- **Público:** 28 a 55+, interesses em negócios, finanças, empreendedorismo e gestão. O público de dono de indústria no TikTok é menor; comece com metade da verba da Meta.
+
 ## Checklist antes de ligar
 - [ ] `LP_CONFIG.whatsapp` com o número real (lp.js).
 - [ ] Supabase e Pixel configurados (lp.js).
