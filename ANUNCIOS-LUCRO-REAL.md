@@ -93,3 +93,16 @@ Gancho: PIS e Cofins dão lugar à CBS em 1º/01/2027. O saldo de créditos cont
 - [ ] Supabase e Pixel configurados (lp.js).
 - [ ] Alguém para responder o WhatsApp em até 1 dia útil, como a página promete.
 - [ ] Contador ou advogado conferiu o art. 378 da LC 214 no texto oficial.
+
+---
+
+## Estado na conta da Meta (18/11/2026)
+Conta de anúncios "Gera Caixa" (`act_1396977758541254`), Página "Gera Caixa" (`1335964486266208`). Tudo **pausado**.
+
+- Campanha `120254310060280612` "Lucro Real · fim de 2026 · link para WhatsApp" (Tráfego).
+  - Conjunto `120254310061000612`: Brasil, 30 a 65 anos, feed e Stories do Facebook e do Instagram, R$ 60/dia, até 31/12/2026.
+  - Anúncios: **ainda não criados**. A Meta recusou por falta de forma de pagamento na conta.
+- Campanha `120254310052040612` "[reserva] WhatsApp direto": vazia. Só serve depois de vincular um WhatsApp Business à Página.
+- Imagens já na biblioteca (hash): R1 `220704dc626a950cc60feedf1ff0ee68`, R2 `1ac94225ad2166b4acf517cee74f3159`, R3 `a4fcc22a810b988cae71e61de34c0adc`, R4 `69c29335a42d60f41eb5ac9954900ca7`.
+
+Pendências na Meta: forma de pagamento; vincular o WhatsApp Business à Página; vincular a conta do Instagram à Página; refinar o público por cargos e interesses.
