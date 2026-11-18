@@ -79,14 +79,14 @@ const CALC={
     200034 alimentos do Anexo VII 60% · cesta básica 100%. A alíquota da CBS de 2027 ainda não está na tabela oficial:
     usamos 8,8%, o valor do exemplo da documentação da Receita. Tudo é premissa, mostrada ao visitante. */
  real(){const fat=num($('#q_fat').value),seg=$('#q_seg').dataset.v||'ind',pres=($('#q_reg')?.dataset.v||'real')==='pres',RG=pres?'Lucro Presumido':'Lucro Real';
-  const cp={a:.2,b:.4,c:.6,d:.8}[$('#q_cp').dataset.v||'b'],CBS=.088;
-  const A={ind:['indústria',0,'tributação integral'],merc:['mercado ou atacarejo',.45,'cerca de metade das vendas em alimentos com redução de 60% e 15% em cesta básica (alíquota zero)'],rest:['restaurante ou alimentação',.4,'redução de 40% de bares e restaurantes'],outro:['outra atividade',0,'tributação integral']}[seg];
+  const CBS=.088;
+  const A={ind:['indústria',0,'tributação integral',.55],merc:['mercado ou atacarejo',.45,'cerca de metade das vendas em alimentos com redução de 60% e 15% em cesta básica (alíquota zero)',.75],rest:['restaurante ou alimentação',.4,'redução de 40% de bares e restaurantes',.4],outro:['outra atividade',0,'tributação integral',.35]}[seg],cp=A[3];
   const hoje=pres?fat*.0365:Math.max(0,fat*(1-cp)*.0925),cbs=fat*(1-cp)*CBS*(1-A[1]),dif=(cbs-hoje)*12,mais=dif>0;
   const p=Math.min(100,(fat>=3e6?50:fat>=1e6?42:fat>=3e5?28:10)+(seg==='outro'?10:20)+(Math.abs(dif)>=1e5?15:5));
   const k=x=>brl(Math.round(x/100)*100);
   return {valor:Math.round(Math.abs(dif)/1000)*1000,real:true,mais,seg:A[0],reg:RG,fat,pontos:p,
    linhas:[['PIS e Cofins hoje (estimado)','~'+k(hoje)+'/mês'],['CBS em 2027 (simulada)','~'+k(cbs)+'/mês'],
-    ['Supomos',`${pres?'3,65% sobre a receita, sem créditos':'9,25% com crédito sobre as compras'} hoje · CBS de 8,8% (valor de exemplo da Receita; a alíquota oficial de 2027 ainda não foi fixada) · ${A[2]} · compras com nota em ${Math.round(cp*100)}% do faturamento, gerando crédito`,1]],
+    ['Supomos',`${pres?'3,65% sobre a receita, sem créditos':'9,25% com crédito sobre as compras'} hoje · CBS de 8,8% (valor de exemplo da Receita; a alíquota oficial de 2027 ainda não foi fixada) · ${A[2]} · compras de mercadorias, insumos e serviços em torno de ${Math.round(cp*100)}% do faturamento (típico da atividade), gerando crédito; folha de pagamento não gera`,1]],
    resumo:`${RG}, ${A[0]}, faturamento ${brl(fat)}/mês, compras ~${Math.round(cp*100)}%, simulação: CBS ${mais?'acima':'abaixo'} do PIS/Cofins em ~${k(Math.abs(dif))}/ano`,
    rotulo:`${mais?'a mais':'a menos'} por ano com a CBS, pela simulação`}},
  emp(){const fat=num($('#q_fat').value),mg=num($('#q_mg').value),dor=$('#q_dor').dataset.v||'margem';const ganho=fat*12*Math.min(.05,Math.max(.02,(15-mg)/100*.3));
