@@ -21,18 +21,18 @@ body.feed{height:1350px}body.story{height:1920px}
 .leg{position:absolute;left:80px;right:80px;font:400 22px "IBM Plex Mono";color:var(--gr)}
 
 /* 1. DATA: cartaz tipográfico */
-#data{background:var(--ink);color:var(--paper)}
-#data .eb{position:absolute;left:80px;top:90px;font:500 26px "IBM Plex Mono";letter-spacing:.08em;text-transform:uppercase;color:#9AA0A6}
-#data .d{position:absolute;left:72px;top:190px;font:800 236px/0.92 "Inter Tight";letter-spacing:-.05em;color:var(--sig)}
-#data .d small{display:block;font-size:236px}
-#data .t{position:absolute;left:80px;top:700px;right:80px;font:700 76px/1.05 "Inter Tight";letter-spacing:-.03em}
-#data .s{position:absolute;left:80px;top:930px;right:110px;font:400 38px/1.35 Inter;color:#C9CDD2}
-#data .s b{color:var(--paper);font-weight:600}
-#data .sg{position:absolute;left:80px;top:1130px;font:500 26px "IBM Plex Mono";letter-spacing:.04em;text-transform:uppercase;color:var(--sig);border:2px solid var(--sig);padding:12px 18px;border-radius:6px}
-#data .brand{left:80px;bottom:80px;color:var(--paper)}#data .brand i{color:var(--sig)}
-#data .tag{position:absolute;right:80px;bottom:84px;font:500 24px "IBM Plex Mono";color:#9AA0A6}
-body.story #data .eb{top:290px}body.story #data .d{top:400px}body.story #data .t{top:920px}body.story #data .s{top:1190px}body.story #data .sg{top:1400px}
-body.story #data .brand{bottom:400px}body.story #data .tag{bottom:404px}
+.dt{background:var(--ink);color:var(--paper)}
+.dt .eb{position:absolute;left:80px;top:90px;font:500 26px "IBM Plex Mono";letter-spacing:.08em;text-transform:uppercase;color:#9AA0A6}
+.dt .d{position:absolute;left:72px;top:190px;font:800 236px/0.92 "Inter Tight";letter-spacing:-.05em;color:var(--sig)}
+.dt .d small{display:block;font-size:236px}
+.dt .t{position:absolute;left:80px;top:700px;right:80px;font:700 76px/1.05 "Inter Tight";letter-spacing:-.03em}
+.dt .s{position:absolute;left:80px;top:930px;right:110px;font:400 38px/1.35 Inter;color:#C9CDD2}
+.dt .s b{color:var(--paper);font-weight:600}
+.dt .sg{position:absolute;left:80px;top:1130px;font:500 26px "IBM Plex Mono";letter-spacing:.04em;text-transform:uppercase;color:var(--sig);border:2px solid var(--sig);padding:12px 18px;border-radius:6px}
+.dt .brand{left:80px;bottom:80px;color:var(--paper)}.dt .brand i{color:var(--sig)}
+.dt .tag{position:absolute;right:80px;bottom:84px;font:500 24px "IBM Plex Mono";color:#9AA0A6}
+body.story .dt .eb{top:290px}body.story .dt .d{top:400px}body.story .dt .t{top:920px}body.story .dt .s{top:1190px}body.story .dt .sg{top:1400px}
+body.story .dt .brand{bottom:400px}body.story .dt .tag{bottom:404px}
 
 /* moldura de "print" usada por chat, comparativo e lista */
 .cap{position:absolute;left:80px;right:80px;top:300px;color:var(--paper);font:700 68px/1.06 "Inter Tight";letter-spacing:-.03em;display:none}
@@ -45,8 +45,8 @@ body.feed .leg{display:none}
 
 /* TikTok: área livre menor (legenda embaixo ~480px, ícones à direita ~140px) */
 body.tiktok .cap{top:170px;right:170px;font-size:62px}body.tiktok .scr{left:90px;top:440px;transform:scale(.74)}body.tiktok .leg{bottom:auto;top:1345px;left:90px;right:190px;text-align:left}
-body.tiktok #data .eb{top:170px}body.tiktok #data .d{top:260px}body.tiktok #data .t{top:770px;right:170px;font-size:68px}body.tiktok #data .s{top:1010px;right:190px;font-size:34px}
-body.tiktok #data .sg{top:1240px}body.tiktok #data .brand{bottom:auto;top:1330px}body.tiktok #data .tag{bottom:auto;top:1344px;right:auto;left:330px}
+body.tiktok .dt .eb{top:170px}body.tiktok .dt .d{top:260px}body.tiktok .dt .t{top:770px;right:170px;font-size:68px}body.tiktok .dt .s{top:1010px;right:190px;font-size:34px}
+body.tiktok .dt .sg{top:1240px}body.tiktok .dt .brand{bottom:auto;top:1330px}body.tiktok .dt .tag{bottom:auto;top:1344px;right:auto;left:330px}
 /* 2. CHAT */
 #chat .scr{background:#F3F2EE;display:flex;flex-direction:column}
 .ch-h{display:flex;align-items:center;gap:24px;padding:30px 40px;background:#fff;border-bottom:1px solid var(--line)}
@@ -86,12 +86,22 @@ td.ok{color:#5f6368}td small{display:block;font-size:22px;color:#5f6368;margin-t
 <body>
 
 <!-- 1. DATA -->
-<section class="v" id="data">
+<section class="v dt" id="data">
   <div class="eb">Lucro Real · PIS e Cofins</div>
   <div class="d disp">31/12<small>2026</small></div>
   <div class="t">É o último dia do<br>PIS e da Cofins.</div>
   <div class="s">Em 2027 entra a CBS. <b>Os créditos dos últimos 5 anos da sua empresa já foram conferidos e escriturados?</b></div>
   <div class="sg">Indústria · Mercado · Atacarejo · Restaurante</div>
+  <div class="brand"><i>Gera</i>Caixa</div><div class="tag">reunião de 30 min · sem custo</div>
+</section>
+
+<!-- 1b. PRESUMIDO: cartaz -->
+<section class="v dt" id="presumido">
+  <div class="eb">Lucro Presumido · PIS e Cofins</div>
+  <div class="d disp">3,65%<small style="font-size:150px;color:#F6F4EF">vira CBS.</small></div>
+  <div class="t">Em 2027 a conta<br>do Presumido muda.</div>
+  <div class="s">Preço e margem mudam com a CBS. <b>E o PIS e a Cofins pagos a mais nos últimos 5 anos ainda podem ser pedidos de volta.</b></div>
+  <div class="sg">Mercado · Atacado · Restaurante · Serviços</div>
   <div class="brand"><i>Gera</i>Caixa</div><div class="tag">reunião de 30 min · sem custo</div>
 </section>
 

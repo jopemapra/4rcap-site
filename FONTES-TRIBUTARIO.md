@@ -193,3 +193,13 @@ Afirmações novas e onde se apoiam. **Tudo a conferir no texto oficial antes de
 | "Calculadora de CBS e IBS disponibilizada pela Receita Federal" | Ferramenta pública da Receita; conferir o endereço e o nome atual antes de citar |
 
 Pontos de atenção: comércio (revenda) não tem crédito de "insumo" no sentido do STJ; para mercados o texto fala só de cadastro de produtos e das despesas com crédito previsto em lei. Nenhum item é prometido: a página diz "podem gerar crédito".
+
+### Lucro Presumido (lp-real.html e anúncio R5), a conferir no texto oficial
+| Afirmação | Base |
+|---|---|
+| "Hoje o Presumido paga 3,65% de PIS e Cofins, sem créditos" | Lei 9.718/1998 (regime cumulativo: PIS 0,65% + Cofins 3%) |
+| Monofásico e alíquota zero tributados de novo na revenda | Leis 10.147/2000, 10.485/2002, 13.097/2015; Lei 10.925/2004 |
+| ICMS destacado fora da base do PIS e da Cofins | STF, Tema 69 (RE 574.706), com modulação a partir de 15/03/2017 |
+| ICMS-ST fora da base para quem compra para revender | STJ, Tema 1.125 (conferir a modulação) |
+| "Com a CBS, o cálculo passa a ter créditos sobre as compras" | LC 214/2025 (CBS não cumulativa) |
+| Pedido de volta dos últimos 5 anos | CTN, arts. 165 e 168 (ver §1) |

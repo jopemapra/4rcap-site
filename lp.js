@@ -73,12 +73,12 @@ const CALC={
  inv(){const pat=num($('#q_pat').value),ap=num($('#q_ap').value),onde=$('#q_onde').dataset.v||'poup';const n=180,rb=Math.pow(1.10,1/12)-1,rp=Math.pow(1.065,1/12)-1;let a=pat,b=pat;for(let k=0;k<n;k++){a=a*(1+rb)+ap;b=b*(1+rp)+ap}
   const p=Math.min(100,(pat>=1e6?50:pat>=3e5?40:pat>=5e4?25:10)+(onde==='poup'?30:onde==='banco'?25:10)+(ap>=2000?15:5));
   return {valor:a-b,linhas:[['Em 15 anos, carteira a 10% a.a.',brl(a)],['Mesmo valor a 6,5% a.a. (poupança/banco)',brl(b)]],pontos:p,resumo:`patrimônio ${brl(pat)}, aporte ${brl(ap)}/mês, hoje em ${onde}`,rotulo:'de diferença em 15 anos (simulação)'}},
- real(){const fat=num($('#q_fat').value),seg=$('#q_seg').dataset.v||'ind',ano=$('#q_ano').dataset.v||'sim';
+ real(){const fat=num($('#q_fat').value),seg=$('#q_seg').dataset.v||'ind',ano=$('#q_ano').dataset.v||'sim',pres=($('#q_reg')?.dataset.v||'real')==='pres',RG=pres?'Lucro Presumido':'Lucro Real';
   const SL={ind:'indústria',merc:'mercado ou atacarejo',rest:'restaurante ou alimentação',outro:'outra atividade'}[seg],AL={sim:'5 anos ou mais',nao:'menos de 5 anos',ns:'tempo a confirmar'}[ano];
   const p=Math.min(100,(fat>=3e6?50:fat>=1e6?40:fat>=3e5?28:12)+(seg==='outro'?12:25)+(ano==='sim'?25:ano==='ns'?15:10));
-  return {valor:0,outro:true,real:true,seg:SL,reg:'Lucro Real',linhas:[['Atividade',SL],['Faturamento médio',brl(fat)+'/mês'],['Lucro Real há',AL]],pontos:p,
-   resumo:`Lucro Real (${AL}), ${SL}, faturamento ${brl(fat)}/mês`,
-   rotulo:ano==='nao'?'Dá para revisar o período em que a empresa esteve no Lucro Real. Vale a conversa.':'Pelo perfil, vale a reunião: dá para revisar até 5 anos de PIS e Cofins antes da virada para a CBS.'}},
+  return {valor:0,outro:true,real:true,seg:SL,reg:RG,linhas:[['Regime',RG],['Atividade',SL],['Faturamento médio',brl(fat)+'/mês'],['Tempo de empresa',AL]],pontos:p,
+   resumo:`${RG} (${AL}), ${SL}, faturamento ${brl(fat)}/mês`,
+   rotulo:ano==='nao'?'Dá para revisar o período desde a abertura da empresa. Vale a conversa.':'Pelo perfil, vale a reunião: dá para revisar até 5 anos de PIS e Cofins antes da virada para a CBS.'}},
  emp(){const fat=num($('#q_fat').value),mg=num($('#q_mg').value),dor=$('#q_dor').dataset.v||'margem';const ganho=fat*12*Math.min(.05,Math.max(.02,(15-mg)/100*.3));
   const p=Math.min(100,(fat>=4e5?45:fat>=1e5?32:12)+(dor==='sucessao'||dor==='socios'?30:22)+(mg<10?20:10));
   return {valor:ganho,linhas:[['Faturamento anual',brl(fat*12)],['Margem líquida atual',mg+'%']],pontos:p,resumo:`faturamento ${brl(fat)}/mês, margem ${mg}%, dor ${dor}`,rotulo:'de ganho anual possível com gestão (estimativa)'}}};
@@ -144,7 +144,7 @@ $('#leadF').onsubmit=async e=>{e.preventDefault();if($('#hp').value)return; // s
   if(SBU()){const falhou=s=>{track('lead_send_fail',{status:s||0});if(reQ(s)){fila.add(lead);setTimeout(flush,1e4)}};
     try{const rs=await postLead(lead);if(!rs.ok&&rs.status!==409)falhou(rs.status)}catch(err){falhou(0)}}
   if(S==='real'){ // Lucro Real: sem valor, só o próximo passo (reunião)
-    const msg=`Olá! Sou ${n}. Vi a página sobre créditos de PIS/Cofins no Lucro Real (${R.seg}, faturamento ${R.linhas[1][1]}). Quero marcar a reunião de 30 minutos. Protocolo ${prot}.`;
+    const msg=`Olá! Sou ${n}. Vi a página sobre créditos de PIS/Cofins (${R.reg}, ${R.seg}, faturamento ${R.linhas[2][1]}). Quero marcar a reunião de 30 minutos. Protocolo ${prot}.`;
     $('#res').innerHTML=`<h3 id="resH" tabindex="-1">Próximo passo</h3><p class="out">${R.rotulo}</p>${R.linhas.map(l=>`<div class="row"><span>${l[0]}</span><b>${l[1]}</b></div>`).join('')}<p class="eyebrow" style="margin-top:18px">O que acontece agora</p><ol class="next"><li>Você manda a mensagem pronta no WhatsApp.</li><li>Respondemos em até 1 dia útil com horários para a reunião.</li><li>Na reunião, você vê o que vale revisar antes de decidir qualquer coisa.</li></ol><a class="btn" id="waGo" target="_blank" rel="noopener" href="${wa(msg)}">Marcar a reunião no WhatsApp</a><p class="micro" style="margin-top:8px">A mensagem já vai pronta · reunião sem custo · protocolo <b>${prot}</b></p><p class="micro">${document.body.dataset.disc}</p>`;
   }else if(S==='trib'){ // tributário: faixa (ou próximo passo, em "outro"), mensagem pronta e envio ao contador
     const fx=R.outro?'':faixa(R);let msg,share;

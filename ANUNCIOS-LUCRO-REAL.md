@@ -1,4 +1,4 @@
-# Anúncios Meta: Lucro Real, fim de 2026 (destino: lp-real.html)
+# Anúncios Meta: Lucro Real e Presumido, fim de 2026 (destino: lp-real.html)
 
 Objetivo: marcar reunião de 30 minutos com empresas do **Lucro Real** (indústrias, mercados, atacarejos, restaurantes) com mais de 5 anos de operação.
 Gancho: PIS e Cofins dão lugar à CBS em 1º/01/2027. O saldo de créditos continua valendo, mas a lei pede crédito **escriturado** (LC 214/2025, art. 378).
@@ -61,6 +61,20 @@ Gancho: PIS e Cofins dão lugar à CBS em 1º/01/2027. O saldo de créditos cont
 **Descrição:** Varejo alimentar e restaurantes
 **Botão:** Saiba mais
 **Link:** `lp-real.html?utm_source=meta&utm_medium=paid_social&utm_campaign=lucro-real-2026&utm_content=R4-lista-varejo`
+
+### R5 · Lucro Presumido
+**Criativos:** `criativos/real-presumido-feed.png` · `criativos/real-presumido-story.png` · `criativos/real-presumido-tiktok.png`
+**Texto principal:**
+> Lucro Presumido: hoje são 3,65% de PIS e Cofins sobre a receita. Em 2027 entra a CBS e a conta muda, com efeito no preço e na margem.
+>
+> Antes disso, vale conferir os últimos 5 anos: produto monofásico ou com alíquota zero tributado de novo e ICMS dentro da base são pontos em que pode haver imposto pago a mais.
+>
+> Reunião de 30 minutos, sem custo, junto com o seu contador. Honorário só sobre o que for efetivamente recuperado.
+
+**Título:** Presumido: a conta muda em 2027
+**Descrição:** Reunião de 30 min, sem custo
+**Botão:** Saiba mais
+**Link:** `lp-real.html?utm_source=meta&utm_medium=paid_social&utm_campaign=lucro-real-2026&utm_content=R5-presumido`
 
 ---
 

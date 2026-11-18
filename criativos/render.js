@@ -25,7 +25,7 @@ const SIZES = [['feed', 1350], ['story', 1920]];
     console.log('ok', file);
   };
   if (REAL) { // campanha Lucro Real: node criativos/render.js real
-    for (const c of ['data', 'chat', 'comparativo', 'lista']) for (const [f, h] of [...SIZES, ['tiktok', 1920]]) {
+    for (const c of ['data', 'presumido', 'chat', 'comparativo', 'lista']) for (const [f, h] of [...SIZES, ['tiktok', 1920]]) {
       const p = await b.newPage({ viewport: { width: 1080, height: h }, deviceScaleFactor: 1 });
       await p.goto(`http://localhost:8765/criativos/real.html?c=${c}&f=${f}`); await p.waitForTimeout(500);
       await p.screenshot({ path: path.join(OUT, `real-${c}-${f}.png`) }); await p.close(); console.log('ok', `real-${c}-${f}.png`);
