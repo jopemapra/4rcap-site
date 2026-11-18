@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=1080"><title>Criativos Lucro Real</title>
+<!--
+  Criativos da campanha Lucro Real (fim de 2026). Destino: lp-real.html
+  Uso: real.html?c=data|chat|comparativo|lista&f=feed|story   (feed 1080x1350 · story 1080x1920)
+  Gerar PNGs: node criativos/render.js real
+  Regras: sem promessa de valor; "imagem ilustrativa" em tudo que parece print; nada de marca/tela da Receita ou de apps.
+-->
+<style>
+@font-face{font-family:"Inter Tight";src:url(../fonts/inter-tight-latin.woff2) format("woff2");font-weight:100 900}
+@font-face{font-family:Inter;src:url(../fonts/inter-latin.woff2) format("woff2");font-weight:100 900}
+@font-face{font-family:"IBM Plex Mono";src:url(../fonts/plex-mono-400-latin.woff2) format("woff2");font-weight:400}
+@font-face{font-family:"IBM Plex Mono";src:url(../fonts/plex-mono-500-latin.woff2) format("woff2");font-weight:500}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0E1116;--paper:#F6F4EF;--pet:#0F5C4D;--sig:#C8F169;--line:#DAD6CC;--gr:#5B6168}
+html,body{width:1080px;overflow:hidden;font-family:Inter,sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink)}
+body.feed{height:1350px}body.story{height:1920px}
+.v{display:none;width:1080px;height:100%;position:relative}.v.on{display:block}
+.mono{font-family:"IBM Plex Mono",monospace}.disp{font-family:"Inter Tight",Inter,sans-serif;letter-spacing:-.03em}
+.brand{position:absolute;font:800 40px "Inter Tight";letter-spacing:-.02em}.brand i{font-style:normal;color:var(--pet)}
+.leg{position:absolute;left:80px;right:80px;font:400 22px "IBM Plex Mono";color:var(--gr)}
+
+/* 1. DATA: cartaz tipográfico */
+#data{background:var(--ink);color:var(--paper)}
+#data .eb{position:absolute;left:80px;top:90px;font:500 26px "IBM Plex Mono";letter-spacing:.08em;text-transform:uppercase;color:#9AA0A6}
+#data .d{position:absolute;left:72px;top:190px;font:800 236px/0.92 "Inter Tight";letter-spacing:-.05em;color:var(--sig)}
+#data .d small{display:block;font-size:236px}
+#data .t{position:absolute;left:80px;top:700px;right:80px;font:700 76px/1.05 "Inter Tight";letter-spacing:-.03em}
+#data .s{position:absolute;left:80px;top:960px;right:110px;font:400 38px/1.35 Inter;color:#C9CDD2}
+#data .s b{color:var(--paper);font-weight:600}
+#data .brand{left:80px;bottom:80px;color:var(--paper)}#data .brand i{color:var(--sig)}
+#data .tag{position:absolute;right:80px;bottom:84px;font:500 24px "IBM Plex Mono";color:#9AA0A6}
+body.story #data .eb{top:290px}body.story #data .d{top:400px}body.story #data .t{top:920px}body.story #data .s{top:1190px}
+body.story #data .brand{bottom:400px}body.story #data .tag{bottom:404px}
+
+/* moldura de "print" usada por chat, comparativo e lista */
+.cap{position:absolute;left:80px;right:80px;top:300px;color:var(--paper);font:700 68px/1.06 "Inter Tight";letter-spacing:-.03em;display:none}
+.cap small{display:block;font:400 34px/1.3 Inter;color:#B9C0C8;letter-spacing:0;margin-top:14px}
+body.story .pr{background:#15181d}body.story .cap{display:block}
+.scr{position:absolute;left:0;top:0;width:1080px;height:1350px;overflow:hidden}
+body.story .scr{left:119px;top:590px;height:1200px;transform:scale(.78);transform-origin:0 0;border-radius:44px}
+body.story .leg{bottom:345px;text-align:center;color:#8b939c;left:60px;right:60px}
+body.feed .leg{display:none}
+
+/* 2. CHAT */
+#chat .scr{background:#F3F2EE;display:flex;flex-direction:column}
+.ch-h{display:flex;align-items:center;gap:24px;padding:30px 40px;background:#fff;border-bottom:1px solid var(--line)}
+.av{width:78px;height:78px;border-radius:50%;background:var(--pet);color:var(--sig);display:flex;align-items:center;justify-content:center;font:800 28px "Inter Tight"}
+.ch-h b{display:block;font:600 36px "Inter Tight";letter-spacing:-.01em}.ch-h span{font:400 25px Inter;color:#777}
+.ch-b{flex:1;padding:30px 36px;display:flex;flex-direction:column;gap:16px}body.story .ch-b{justify-content:flex-end;overflow:hidden}body.story .sys{display:none}
+.sys{align-self:center;background:#E9E7E0;color:#55524a;font:500 23px Inter;padding:10px 22px;border-radius:10px}
+.m{max-width:82%;padding:18px 24px 12px;border-radius:18px;font:400 34px/1.34 Inter;border:1px solid var(--line)}
+.m time{display:block;text-align:right;font:400 21px Inter;color:#8a8a8a;margin-top:4px}
+.in{align-self:flex-start;background:#fff;border-top-left-radius:5px}.out{align-self:flex-end;background:#E3EBE8;border-color:#E3EBE8;border-top-right-radius:5px}
+.m ul{list-style:none;margin:8px 0 2px}.m li{padding:6px 0 6px 34px;position:relative;font-size:32px}.m li:before{content:"";position:absolute;left:4px;top:22px;width:14px;height:14px;background:var(--pet);border-radius:2px}
+
+/* 3. COMPARATIVO (planilha) */
+#comparativo .scr{background:#fff;display:flex;flex-direction:column}
+.sh-t{padding:34px 40px 22px;border-bottom:1px solid #dadce0}.sh-t b{display:block;font:500 36px Inter}.sh-t span{font:400 24px Inter;color:#5f6368}
+table{border-collapse:collapse;width:100%;table-layout:fixed;font:400 30px Inter}
+td,th{border:1px solid #e2e3e3;height:104px;padding:0 20px;text-align:left;vertical-align:middle;line-height:1.2}
+th{background:#f8f9fa;color:#5f6368;font:500 23px Inter;height:46px;text-align:center}
+td.rn{background:#f8f9fa;color:#5f6368;font:500 22px Inter;text-align:center;padding:0;width:60px}
+tr.hd td{font-weight:700;background:#f3f3f3;height:84px}
+td.q{background:#FFF8D6;font:700 44px "Inter Tight";color:#B3261E;text-align:center}
+td.ok{color:#5f6368}td small{display:block;font-size:22px;color:#5f6368;margin-top:4px}
+.mk{position:absolute;color:#d93025;font:700 italic 44px/1.1 Inter;transform:rotate(-4deg)}
+.ring{position:absolute;pointer-events:none}
+
+/* 4. LISTA (bloco de notas) */
+#lista .scr{background:#FBFAF7;padding:60px 64px 0}
+#lista h1{font:800 62px/1.08 "Inter Tight";letter-spacing:-.03em;margin-bottom:10px}
+#lista .dt{font:400 25px Inter;color:#8e8e93;margin-bottom:26px}
+#lista h2{font:500 24px "IBM Plex Mono";letter-spacing:.06em;text-transform:uppercase;color:var(--pet);margin:26px 0 4px}
+.li{display:flex;align-items:center;gap:22px;font:400 34px/1.25 Inter;padding:13px 0;border-bottom:1px solid #eeebe4}
+.bx{width:40px;height:40px;border:3px solid #c7c7cc;border-radius:6px;flex:none}
+.li.x .bx{background:var(--pet);border-color:var(--pet);position:relative}.li.x .bx:after{content:"";position:absolute;left:8px;top:8px;width:16px;height:9px;border-left:4px solid #fff;border-bottom:4px solid #fff;transform:rotate(-45deg)}
+.hl{background:linear-gradient(transparent 58%,#ffe16a 58%)}
+#lista p{font:400 32px/1.4 Inter;margin-top:26px}
+</style></head>
+<body>
+
+<!-- 1. DATA -->
+<section class="v" id="data">
+  <div class="eb">Lucro Real · PIS e Cofins</div>
+  <div class="d disp">31/12<small>2026</small></div>
+  <div class="t">É o último dia do PIS e da Cofins.</div>
+  <div class="s">Em 2027 entra a CBS. <b>Os créditos dos últimos 5 anos da sua empresa já foram conferidos e escriturados?</b></div>
+  <div class="brand"><i>4R</i>CAP</div><div class="tag">reunião de 30 min · sem custo</div>
+</section>
+
+<!-- 2. CHAT -->
+<section class="v pr" id="chat">
+  <div class="cap">Indústria no Lucro Real?<small>A pergunta deste fim de ano.</small></div>
+  <div class="scr">
+    <div class="ch-h"><div class="av">4R</div><div><b>4RCAP · Tributário</b><span>exemplo ilustrativo</span></div></div>
+    <div class="ch-b">
+      <div class="sys">Conversa ilustrativa</div>
+      <div class="m out">Somos indústria no Lucro Real. Com a CBS em 2027, o que acontece com os nossos créditos de PIS e Cofins?<time>09:12</time></div>
+      <div class="m in">O saldo continua valendo e pode ser usado contra a CBS. Mas a lei fala em crédito <b>escriturado</b>.<time>09:13</time></div>
+      <div class="m in">Vale conferir ainda em 2026 o que nunca foi lançado:
+        <ul><li>embalagens e materiais de produção</li><li>energia e manutenção de máquinas</li><li>EPIs e tratamento de resíduos</li></ul><time>09:13</time></div>
+      <div class="m out">E quanto custa olhar isso?<time>09:14</time></div>
+      <div class="m in">A reunião e a conferência não têm custo. Honorário só sobre o que for efetivamente recuperado.<time>09:14</time></div>
+    </div>
+  </div>
+  <div class="leg">Imagem ilustrativa · sem garantia de resultado · 4RCAP</div>
+</section>
+
+<!-- 3. COMPARATIVO -->
+<section class="v pr" id="comparativo">
+  <div class="cap">Já rodou sua empresa na conta da Reforma?<small>2026 de um lado, 2027 do outro.</small></div>
+  <div class="scr">
+    <div class="sh-t"><b>Reforma tributária · minha empresa (modelo)</b><span>Lucro Real · planilha ilustrativa</span></div>
+    <div style="position:relative;flex:1">
+    <table>
+      <colgroup><col style="width:60px"><col style="width:400px"><col><col></colgroup>
+      <tr><th></th><th>A</th><th>B</th><th>C</th></tr>
+      <tr class="hd"><td class="rn">1</td><td></td><td>2026</td><td>2027</td></tr>
+      <tr><td class="rn">2</td><td>Tributo sobre a receita</td><td class="ok">PIS + Cofins<small>9,25% não cumulativo</small></td><td class="ok">CBS<small>novo cálculo</small></td></tr>
+      <tr><td class="rn">3</td><td>Quanto a empresa paga</td><td class="ok">conhecido</td><td class="q">?</td></tr>
+      <tr><td class="rn">4</td><td>Créditos sobre compras</td><td class="ok">só alguns itens</td><td class="q">?</td></tr>
+      <tr><td class="rn">5</td><td>Preço de venda</td><td class="ok">atual</td><td class="q">?</td></tr>
+      <tr><td class="rn">6</td><td>Saldo de créditos antigos</td><td class="q" id="cq">escriturado?</td><td class="ok">usa contra a CBS</td></tr>
+      <tr><td class="rn">7</td><td>Últimos 5 anos revisados</td><td class="q">?</td><td class="ok"></td></tr>
+      <tr><td class="rn">8</td><td></td><td></td><td></td></tr>
+      <tr><td class="rn">9</td><td></td><td></td><td></td></tr>
+      <tr><td class="rn">10</td><td></td><td></td><td></td></tr>
+      <tr><td class="rn">11</td><td></td><td></td><td></td></tr>
+    </table>
+    <svg class="ring" id="ring" viewBox="0 0 380 140" preserveAspectRatio="none"><path d="M40 78 C 30 20, 330 8, 362 58 C 384 104, 120 136, 36 104 C 4 90, 22 52, 78 40" fill="none" stroke="#d93025" stroke-width="6" stroke-linecap="round"/></svg>
+    <div class="mk" id="mk">resolver antes de 31/12</div>
+    </div>
+  </div>
+  <div class="leg">Imagem ilustrativa · sem garantia de resultado · 4RCAP</div>
+</section>
+
+<!-- 4. LISTA -->
+<section class="v pr" id="lista">
+  <div class="cap">Mercado, atacarejo ou restaurante no Lucro Real?<small>A lista para fechar antes da virada.</small></div>
+  <div class="scr">
+    <h1>Antes de 31/12: PIS e Cofins</h1>
+    <div class="dt">Lucro Real · conferir os <span class="hl">últimos 5 anos</span></div>
+    <h2>Mercado e atacarejo</h2>
+    <div class="li"><span class="bx"></span>Monofásico e alíquota zero no cadastro certo</div>
+    <div class="li"><span class="bx"></span>Energia das lojas e do CD</div>
+    <div class="li"><span class="bx"></span>Aluguel pago a pessoa jurídica</div>
+    <div class="li"><span class="bx"></span>Frete e armazenagem na venda</div>
+    <h2>Restaurante</h2>
+    <div class="li"><span class="bx"></span>Ingredientes e embalagens de delivery</div>
+    <div class="li"><span class="bx"></span>Gás e energia da cozinha</div>
+    <div class="li"><span class="bx"></span>Bebidas monofásicas tributadas de novo</div>
+    <p>Em 2027 entra a CBS. O que der crédito precisa estar <b>escriturado</b>.</p>
+    <div class="brand" style="left:64px;top:1230px"><i>4R</i>CAP</div><div class="mono" style="position:absolute;right:64px;top:1244px;font-size:24px;color:#5B6168">reunião de 30 min · sem custo</div>
+  </div>
+  <div class="leg">Imagem ilustrativa · cada item depende de análise · 4RCAP</div>
+</section>
+
+<script>
+const q=new URLSearchParams(location.search),c=q.get('c')||'data',f=q.get('f')||'feed';
+document.body.className=f;document.getElementById(c).classList.add('on');
+if(c==='comparativo'){const t=document.getElementById('cq'),g=t.closest('div').getBoundingClientRect(),r=t.getBoundingClientRect(),k=f==='story'?1/.78:1;
+ const ring=document.getElementById('ring'),mk=document.getElementById('mk');
+ ring.style.width=(r.width*k+50)+'px';ring.style.height=(r.height*k+50)+'px';ring.style.left=((r.left-g.left)*k-25)+'px';ring.style.top=((r.top-g.top)*k-25)+'px';
+ mk.style.left=((r.left-g.left)*k-10)+'px';mk.style.top=((r.top-g.top)*k+r.height*k+150)+'px';}
+</script>
+</body></html>

@@ -176,3 +176,20 @@ https://normas.receita.fazenda.gov.br/sijut2consulta/link.action?idAto=153636
 | "Diagnóstico em 10 dias" | A landing promete resposta em até 1 dia útil, não um prazo de diagnóstico |
 | "Revisamos ICMS e INSS" | A landing e o simulador tratam só de PIS e Cofins no DAS |
 | "Evita perdas na transição" | Não há perda automática em 2027 para o Simples; a urgência real é o prazo de 5 anos de cada pagamento |
+
+---
+
+## Campanha Lucro Real (lp-real.html e ANUNCIOS-LUCRO-REAL.md)
+Afirmações novas e onde se apoiam. **Tudo a conferir no texto oficial antes de publicar** (Planalto inacessível desta máquina).
+
+| Afirmação | Base |
+|---|---|
+| "PIS e Cofins acabam em 31/12/2026; em 2027 entra a CBS" | EC 132/2023 e LC 214/2025 (ver §3) |
+| "A lei mantém o saldo, mas pede crédito escriturado" | LC 214/2025, arts. 378 a 383 (ver §4) |
+| Indústria: insumos por essencialidade ou relevância | STJ, REsp 1.221.170 (ver §7); PN Cosit 5/2018 |
+| Energia elétrica, aluguéis pagos a pessoa jurídica, frete e armazenagem na venda | Lei 10.637/2002 e Lei 10.833/2003, art. 3º (incisos de energia, aluguéis e frete na venda) |
+| Mercados: monofásico e alíquota zero tributados por erro de cadastro | Leis 10.147/2000, 10.485/2002, 13.097/2015 (monofásico); Lei 10.925/2004 e correlatas (alíquota zero) |
+| Restaurantes: ingredientes, embalagens e gás como insumo | Mesma regra de insumos (REsp 1.221.170); depende da atividade e de análise item a item |
+| "Calculadora de CBS e IBS disponibilizada pela Receita Federal" | Ferramenta pública da Receita; conferir o endereço e o nome atual antes de citar |
+
+Pontos de atenção: comércio (revenda) não tem crédito de "insumo" no sentido do STJ; para mercados o texto fala só de cadastro de produtos e das despesas com crédito previsto em lei. Nenhum item é prometido: a página diz "podem gerar crédito".
