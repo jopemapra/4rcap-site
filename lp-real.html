@@ -94,8 +94,8 @@
    <label for="q_fat">Faturamento mensal médio (R$)</label><input id="q_fat" inputmode="numeric" placeholder="1.500.000" value="1.500.000">
    <label for="q_cp">Parte do faturamento gasta com mercadorias, insumos e serviços de terceiros</label><div class="rng"><input id="q_cp" type="range" min="10" max="90" step="5" value="55"><output id="o_cp">55%</output></div>
    <p class="hint">É o que gera crédito. Folha de pagamento não gera. Já vem com o valor típico da atividade; ajuste se souber o seu.</p>
-   <label for="q_cbs">Alíquota da CBS em 2027</label><div class="rng"><input id="q_cbs" type="range" min="7" max="10" step="0.1" value="8.8"><output id="o_cbs">8,8%</output></div>
-   <p class="hint">Ainda não foi fixada. 8,8% é o valor usado no exemplo da calculadora da Receita.</p>
+   <label for="q_cbs">Alíquota da CBS em 2027</label><div class="rng"><input id="q_cbs" type="range" min="8" max="12.5" step="0.1" value="11.2"><output id="o_cbs">11,2%</output></div>
+   <p class="hint">O TCU calculou 11,3% de referência, o que dá 11,2% cobrados em 2027. O Senado ainda vai fixar o número (prazo: 15/12/2026).</p>
   </div>
   <div class="out" aria-live="polite">
    <span class="hd">Resultado da simulação</span>
@@ -125,7 +125,7 @@
  </div></div></section>
 
 <section><div class="w"><p class="eyebrow">Perguntas frequentes</p><h2 class="h2">O que costumam perguntar antes de marcar.</h2><div class="faq">
- <details><summary>De onde vêm os números da simulação?</summary><p>As reduções de alíquota por tipo de operação vêm da tabela da Calculadora de Tributos que a Receita Federal publicou em código aberto no GitHub (base V0059). A alíquota da CBS de 2027 ainda não foi fixada: o simulador começa em 8,8%, o valor do exemplo da documentação da Receita, e você pode mudar. O resultado é uma ordem de grandeza, não um cálculo fiscal. O IBS de 2027 (0,1%) e o ICMS e o ISS, que continuam, ficam fora da conta.</p></details>
+ <details><summary>De onde vêm os números da simulação?</summary><p>As reduções de alíquota por tipo de operação vêm da tabela da Calculadora de Tributos que a Receita Federal publicou em código aberto no GitHub (base V0059). A alíquota da CBS de 2027 ainda depende do Senado: o simulador começa em 11,2%, que é a referência de 11,3% calculada pelo TCU (Acórdão 2.933/2026) menos o 0,1 ponto de redução previsto para 2027, e você pode mudar. O resultado é uma ordem de grandeza, não um cálculo fiscal. O IBS de 2027 (0,1%) e o ICMS e o ISS, que continuam, ficam fora da conta.</p></details>
  <details><summary>Meus créditos somem em 31/12/2026?</summary><p>Não. A LC 214/2025 mantém o saldo de PIS e Cofins, que pode ser compensado com a CBS ou ressarcido. O ponto de atenção é que a lei exige o crédito escriturado, e ainda há discussão sobre créditos lançados depois da virada. Por isso a recomendação é revisar e escriturar ainda em 2026.</p></details>
  <details><summary>Quanto custa?</summary><p>A simulação, a reunião e a conferência não têm custo. Se houver crédito e você decidir seguir, o honorário é um percentual combinado antes, só sobre o que for efetivamente recuperado.</p></details>
  <details><summary>Preciso trocar de contador?</summary><p>Não. O trabalho é feito junto com o seu contador, que valida cada lançamento.</p></details>

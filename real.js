@@ -5,7 +5,8 @@ const CFG={whatsapp:'5511943787719',supabaseUrl:'',supabaseAnonKey:'',metaPixelI
    Reduções de alíquota por classificação tributária: tabela da Calculadora de Tributos da Receita Federal
    (github.com/ReceitaFederal/calculadora-rtc-regime-regular, base V0059):
      000001 tributação integral 0% · 200047 bares e restaurantes 40% · 200034 alimentos do Anexo VII 60% · cesta básica 100%.
-   A alíquota da CBS de 2027 não está na tabela oficial (só as de teste de 2026): o visitante parte de 8,8%, valor do exemplo da documentação.
+   A alíquota da CBS de 2027 não está na tabela da calculadora (só as de teste de 2026). O visitante parte de 11,2%:
+   referência de 11,3% calculada pelo TCU (Acórdão 2.933/2026, de 28/10/2026) menos 0,1 ponto em 2027 (ADCT, art. 127). O Senado ainda fixa por resolução (prazo 15/12/2026).
    cp = parte do faturamento gasta com compras que geram crédito (valor típico, ajustável na tela). O mix do mercado é premissa nossa. */
 const ATV={ind:{n:'indústria',red:0,cp:55,t:'tributação integral, sem redução de alíquota'},
  merc:{n:'mercado ou atacarejo',red:.45,cp:75,t:'redução média de 45%: metade das vendas em alimentos com redução de 60% e 15% em cesta básica com alíquota zero'},
@@ -34,7 +35,7 @@ function calc(){const fat=num($('#q_fat').value),reg=$('#q_reg').dataset.v,a=ATV
   const mx=Math.max(hoje,novo,1);$('#b_h').style.width=(hoje/mx*100)+'%';$('#b_n').style.width=(novo/mx*100)+'%';$('#v_h').textContent=k(hoje)+'/mês';$('#v_n').textContent=k(novo)+'/mês';
   $('#mem').innerHTML=[['Faturamento',k(fat),k(fat)],['Alíquota sobre a receita',pc(alH*100),a.red?`${pc(cbs*100)} − ${Math.round(a.red*100)}% = ${pc(ef*100)}`:pc(ef*100)],['Imposto sobre as vendas',k(debH),k(debN)],
    ['Crédito sobre as compras ('+Math.round(cp*100)+'% do faturamento)',pres?'não tem':'− '+k(crH),'− '+k(crN)]].map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')+`<tr class="tt"><td>A pagar por mês</td><td>${k(hoje)}</td><td>${k(novo)}</td></tr>`;
-  $('#prem').innerHTML=`Premissas: ${pres?'Presumido paga 3,65% sobre a receita, sem créditos':'Lucro Real paga 9,25% com crédito sobre as compras'} · ${a.t} · crédito da CBS na mesma alíquota efetiva das vendas · fora da conta: IBS de 0,1%, ICMS e ISS. Reduções conforme a tabela da <a href="https://github.com/ReceitaFederal/calculadora-rtc-regime-regular" target="_blank" rel="noopener">Calculadora de Tributos da Receita Federal</a>. Ordem de grandeza, não cálculo fiscal.`;
+  $('#prem').innerHTML=`Premissas: ${pres?'Presumido paga 3,65% sobre a receita, sem créditos':'Lucro Real paga 9,25% com crédito sobre as compras'} · ${a.t} · CBS de ${pc(cbs*100)} (referência do TCU, ainda sujeita ao Senado) · crédito da CBS na mesma alíquota efetiva das vendas · fora da conta: IBS de 0,1%, ICMS e ISS. Reduções conforme a tabela da <a href="https://github.com/ReceitaFederal/calculadora-rtc-regime-regular" target="_blank" rel="noopener">Calculadora de Tributos da Receita Federal</a>. Ordem de grandeza, não cálculo fiscal.`;
   if(mexeu){const sl=$('#simL');sl.hidden=false;sl.textContent=`Sua simulação vai junto: ${SIM.reg}, ${a.n}, ${brl(fat)}/mês, CBS ~${k(Math.abs(dif))} ${mais?'a mais':'a menos'} por ano.`}}
 $$('.seg').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;g.dataset.v=b.dataset.v;[...g.children].forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b)});
   if(g.id==='q_seg'&&!cpManual)$('#q_cp').value=ATV[b.dataset.v].cp;mexeu=true;calc();track('calc_change')}));
