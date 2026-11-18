@@ -219,3 +219,28 @@ Fonte das regras: **Calculadora de Tributos da Receita Federal**, publicada em c
 | Mix de vendas do mercado (50% alimentos reduzidos, 15% cesta básica) e crédito sobre as compras na mesma alíquota efetiva | **Premissa nossa**, mostrada ao visitante no resultado |
 
 O simulador fica em `real.js` (script próprio da `lp-real.html`). O visitante pode ajustar na tela a alíquota da CBS (começa em 11,2%) e a parte do faturamento gasta com compras (começa no valor típico da atividade: indústria 55%, mercado 75%, restaurante 40%, serviços 25%, que são **premissas nossas**). Quando a alíquota oficial for fixada, trocar o valor inicial do controle `q_cbs` na `lp-real.html`.
+
+### Conferência dos números do simulador (18/11/2026)
+**Números de lei ou de órgão oficial**
+| Número | Fonte | Situação |
+|---|---|---|
+| PIS/Cofins no Lucro Real: 9,25% (1,65% + 7,6%), com créditos | Leis 10.637/2002 e 10.833/2003 | Regra conhecida; conferir no texto oficial |
+| PIS/Cofins no Presumido: 3,65% (0,65% + 3%), sem créditos | Lei 9.718/1998 | Regra conhecida; conferir no texto oficial |
+| CBS de referência: 11,3% (cálculo exato 11,3468%) | TCU, Acórdão 2.933/2026, de 28/10/2026 | Confirmado em várias fontes (TCU, Agência Brasil, Senado). **Ainda não fixado:** o Senado decide por resolução, prazo 15/12/2026 |
+| CBS cobrada em 2027: 11,2% | Referência menos 0,1 ponto em 2027 e 2028 (ADCT, art. 127) | Confirmado em fontes secundárias; conferir o texto do ADCT |
+| A CBS incide sobre a venda sem ICMS, ISS, PIS e Cofins | LC 214/2025, art. 12, §2º, V | Confirmado em fontes secundárias e em consulta da SEFAZ-SP |
+| Bares e restaurantes: redução de 40%; bebidas alcoólicas ficam fora | LC 214/2025, arts. 273 a 276; tabela da calculadora da Receita, cClassTrib 200047 | Confirmado na tabela da Receita e em fontes secundárias |
+| Alimentos do Anexo VII: redução de 60%; cesta básica: alíquota zero | Tabela da calculadora da Receita (200034 e reduções de 100%) | Confirmado na tabela da Receita |
+| Folha de pagamento não gera crédito; compra do Simples gera crédito limitado | LC 214/2025, art. 47, §9º | Confirmado em fontes secundárias |
+
+**Premissas nossas (não vêm de lei; o visitante pode ajustar ou substituir)**
+| Premissa | Valor inicial |
+|---|---|
+| ICMS ou ISS médio sobre as vendas | indústria 12%, mercado 10%, restaurante 4%, serviços 5% |
+| Compras sobre o faturamento | indústria 55%, mercado 75%, restaurante 40%, serviços 25% |
+| Mix de vendas do mercado | 50% alimentos com redução de 60%, 15% cesta básica, 35% integral (redução média de 45%) |
+| Redução média embutida nas compras (define o crédito) | mercado 45%, restaurante 45%, demais 0% |
+| Parte das vendas que hoje já não paga PIS/Cofins | mercado 30%, restaurante 10%, demais 0% |
+
+O campo "PIS e Cofins pagos hoje" permite trocar a estimativa do "hoje" pelo valor real da empresa.
+Simplificações declaradas na página: o IBS de 0,1%, o ICMS, o ISS e o Imposto Seletivo ficam fora da conta; a base do PIS/Cofins de hoje é tratada como a venda sem ICMS/ISS (para o ISS isso ainda é discutido no STF, Tema 118).

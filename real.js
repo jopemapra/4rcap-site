@@ -8,10 +8,13 @@ const CFG={whatsapp:'5511943787719',supabaseUrl:'',supabaseAnonKey:'',metaPixelI
    A alíquota da CBS de 2027 não está na tabela da calculadora (só as de teste de 2026). O visitante parte de 11,2%:
    referência de 11,3% calculada pelo TCU (Acórdão 2.933/2026, de 28/10/2026) menos 0,1 ponto em 2027 (ADCT, art. 127). O Senado ainda fixa por resolução (prazo 15/12/2026).
    cp = parte do faturamento gasta com compras que geram crédito (valor típico, ajustável na tela). O mix do mercado é premissa nossa. */
-const ATV={ind:{n:'indústria',red:0,cp:55,t:'tributação integral, sem redução de alíquota'},
- merc:{n:'mercado ou atacarejo',red:.45,cp:75,t:'redução média de 45%: metade das vendas em alimentos com redução de 60% e 15% em cesta básica com alíquota zero'},
- rest:{n:'restaurante',red:.4,cp:40,t:'redução de 40% de bares e restaurantes'},
- serv:{n:'serviços',red:0,cp:25,t:'tributação integral, sem redução de alíquota'}};
+/* red = redução da alíquota da CBS nas vendas · redC = redução média embutida nas compras (define o crédito)
+   isen = parte das vendas que hoje já não paga PIS/Cofins (alíquota zero e monofásicos) · icms = ICMS ou ISS médio sobre as vendas · cp = compras/faturamento.
+   red de restaurante vem da tabela da Receita; o resto (redC, isen, icms, cp e o mix do mercado) é PREMISSA NOSSA, ajustável ou anulada quando o visitante informa o PIS/Cofins real. */
+const ATV={ind:{n:'indústria',red:0,redC:0,isen:0,icms:12,cp:55,t:'vendas com tributação integral'},
+ merc:{n:'mercado ou atacarejo',red:.45,redC:.45,isen:.3,icms:10,cp:75,t:'mercado: metade das vendas em alimentos com redução de 60% e 15% em cesta básica com alíquota zero (redução média de 45%, igual nas compras); hoje, 30% das vendas sem PIS/Cofins (alíquota zero e monofásicos)'},
+ rest:{n:'restaurante',red:.4,redC:.45,isen:.1,icms:4,cp:40,t:'restaurante: redução de 40% nas vendas (sem bebidas alcoólicas) e compras de alimentos com redução média de 45%; hoje, 10% das vendas sem PIS/Cofins (bebidas monofásicas)'},
+ serv:{n:'serviços',red:0,redC:0,isen:0,icms:5,cp:25,t:'vendas com tributação integral'}};
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const brl=n=>(isFinite(n)?n:0).toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
 const num=v=>parseFloat(String(v).replace(/\./g,'').replace(',','.'))||0,pc=x=>x.toLocaleString('pt-BR',{maximumFractionDigits:2})+'%';
@@ -22,25 +25,36 @@ if(CFG.metaPixelId){!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){
 try{const q=new URLSearchParams(location.search),u={};['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','fbclid'].forEach(k=>q.get(k)&&(u[k]=q.get(k)));if(Object.keys(u).length)store.set('utm',u)}catch(e){}
 
 /* ---------- simulador ---------- */
-let SIM=null,mexeu=false,cpManual=false;
-function calc(){const fat=num($('#q_fat').value),reg=$('#q_reg').dataset.v,a=ATV[$('#q_seg').dataset.v],cp=+$('#q_cp').value/100,cbs=+$('#q_cbs').value/100;
-  $('#o_cp').textContent=Math.round(cp*100)+'%';$('#o_cbs').textContent=pc(cbs*100);
+let SIM=null,mexeu=false,man={cp:false,icms:false,hoje:false};
+function calc(){const fat=num($('#q_fat').value),reg=$('#q_reg').dataset.v,a=ATV[$('#q_seg').dataset.v],cp=+$('#q_cp').value/100,cbs=+$('#q_cbs').value/100,ic=+$('#q_icms').value/100;
+  $('#o_cp').textContent=Math.round(cp*100)+'%';$('#o_cbs').textContent=pc(cbs*100);$('#o_icms').textContent=Math.round(ic*100)+'%';
   if(fat<1000){SIM=null;$('#r_dif').textContent='Informe o faturamento';$('#mem').innerHTML='';$('#prem').textContent='';$('#v_h').textContent=$('#v_n').textContent='';return}
-  const pres=reg==='pres',alH=pres?.0365:.0925,debH=fat*alH,crH=pres?0:fat*cp*alH,hoje=debH-crH;
-  const ef=cbs*(1-a.red),debN=fat*ef,crN=fat*cp*ef,novo=debN-crN,dif=(novo-hoje)*12,mais=dif>0,k=x=>brl(Math.round(x/100)*100);
-  const var_=hoje>0?(novo/hoje-1)*100:0;
-  SIM={fat,reg:pres?'Lucro Presumido':'Lucro Real',seg:a.n,cp,cbs,hoje,novo,dif,mais};
+  const pres=reg==='pres',k=x=>brl(Math.round(x/100)*100),base=fat*(1-ic),comp=fat*cp*(1-ic);
+  // hoje: estimativa (ou o valor real informado)
+  const alH=pres?.0365:.0925,debH=base*(1-a.isen)*alH,crH=pres?0:comp*(1-a.isen)*alH,est=Math.max(0,debH-crH);
+  const hi=$('#q_hoje');hi.placeholder='Estimativa: '+k(est).replace('R$','').trim();
+  const hoje=man.hoje?num(hi.value):est;
+  $('#h_hoje').textContent=man.hoje?'Usando o valor que você informou. Apague para voltar à estimativa.':'Em branco, usamos a estimativa acima. Se souber o valor real da sua apuração, digite: a conta fica mais fiel.';
+  // 2027
+  const ef=cbs*(1-a.red),efC=cbs*(1-a.redC),debN=base*ef,crN=comp*efC,novo=Math.max(0,debN-crN),dif=(novo-hoje)*12,mais=dif>0,var_=hoje>0?(novo/hoje-1)*100:0;
+  SIM={fat,reg:pres?'Lucro Presumido':'Lucro Real',seg:a.n,cp,cbs,ic,hoje,novo,dif,mais,real:man.hoje};
+  const kk=x=>brl(Math.round(x/1000)*1000);
   $('#r_dif').innerHTML=Math.abs(dif)<12000?`Praticamente igual<small>A CBS simulada fica perto do que a empresa paga hoje de PIS e Cofins.</small>`
-   :`~${k(Math.abs(dif))} ${mais?'a mais':'a menos'} por ano<small>${mais?'A CBS simulada fica '+pc(Math.abs(Math.round(var_)))+' acima do PIS e da Cofins de hoje. Isso pesa no preço e na margem.':'A CBS simulada fica '+pc(Math.abs(Math.round(var_)))+' abaixo do PIS e da Cofins de hoje. Vale conferir se o preço acompanha.'}</small>`;
+   :`~${kk(Math.abs(dif))} ${mais?'a mais':'a menos'} por ano<small>${hoje>0?'A CBS simulada fica cerca de '+Math.abs(Math.round(var_))+'% '+(mais?'acima':'abaixo')+' do PIS e da Cofins de hoje. ':''}${mais?'Isso pesa no preço e na margem.':'Vale conferir se o preço e os contratos acompanham.'}</small>`;
   const mx=Math.max(hoje,novo,1);$('#b_h').style.width=(hoje/mx*100)+'%';$('#b_n').style.width=(novo/mx*100)+'%';$('#v_h').textContent=k(hoje)+'/mês';$('#v_n').textContent=k(novo)+'/mês';
-  $('#mem').innerHTML=[['Faturamento',k(fat),k(fat)],['Alíquota sobre a receita',pc(alH*100),a.red?`${pc(cbs*100)} − ${Math.round(a.red*100)}% = ${pc(ef*100)}`:pc(ef*100)],['Imposto sobre as vendas',k(debH),k(debN)],
-   ['Crédito sobre as compras ('+Math.round(cp*100)+'% do faturamento)',pres?'não tem':'− '+k(crH),'− '+k(crN)]].map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')+`<tr class="tt"><td>A pagar por mês</td><td>${k(hoje)}</td><td>${k(novo)}</td></tr>`;
-  $('#prem').innerHTML=`Premissas: ${pres?'Presumido paga 3,65% sobre a receita, sem créditos':'Lucro Real paga 9,25% com crédito sobre as compras'} · ${a.t} · CBS de ${pc(cbs*100)} (referência do TCU, ainda sujeita ao Senado) · crédito da CBS na mesma alíquota efetiva das vendas · fora da conta: IBS de 0,1%, ICMS e ISS. Reduções conforme a tabela da <a href="https://github.com/ReceitaFederal/calculadora-rtc-regime-regular" target="_blank" rel="noopener">Calculadora de Tributos da Receita Federal</a>. Ordem de grandeza, não cálculo fiscal.`;
-  if(mexeu){const sl=$('#simL');sl.hidden=false;sl.textContent=`Sua simulação vai junto: ${SIM.reg}, ${a.n}, ${brl(fat)}/mês, CBS ~${k(Math.abs(dif))} ${mais?'a mais':'a menos'} por ano.`}}
+  const R=[['Faturamento',k(fat),k(fat)],['Sem ICMS/ISS ('+Math.round(ic*100)+'%): base da conta',k(base),k(base)],
+   ['Alíquota',man.hoje?'valor informado':pc(alH*100),a.red?`${pc(cbs*100)} − ${Math.round(a.red*100)}% = ${pc(ef*100)}`:pc(ef*100)],
+   ['Imposto sobre as vendas',man.hoje?'':k(debH),k(debN)],
+   ['Crédito sobre as compras ('+Math.round(cp*100)+'% do faturamento)',man.hoje?'':pres?'não tem':'− '+k(crH),'− '+k(crN)]];
+  $('#mem').innerHTML=R.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')+`<tr class="tt"><td>A pagar por mês</td><td>${k(hoje)}</td><td>${k(novo)}</td></tr>`;
+  $('#prem').innerHTML=`Premissas: ${man.hoje?'PIS e Cofins de hoje: valor informado por você':pres?'hoje, Presumido a 3,65% sem créditos':'hoje, Lucro Real a 9,25% com crédito sobre as compras'} · CBS de ${pc(cbs*100)} (referência de 11,3% do TCU menos 0,1 ponto; o Senado ainda fixa) sobre a venda sem ICMS/ISS · ${a.t} · fora da conta: IBS de 0,1%, ICMS, ISS e Imposto Seletivo. Reduções conforme a tabela da <a href="https://github.com/ReceitaFederal/calculadora-rtc-regime-regular" target="_blank" rel="noopener">Calculadora de Tributos da Receita Federal</a>. Ordem de grandeza, não cálculo fiscal.`;
+  if(mexeu){const sl=$('#simL');sl.hidden=false;sl.textContent=`Sua simulação vai junto: ${SIM.reg}, ${a.n}, ${brl(fat)}/mês, CBS ~${kk(Math.abs(dif))} ${mais?'a mais':'a menos'} por ano.`}}
 $$('.seg').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;g.dataset.v=b.dataset.v;[...g.children].forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b)});
-  if(g.id==='q_seg'&&!cpManual)$('#q_cp').value=ATV[b.dataset.v].cp;mexeu=true;calc();track('calc_change')}));
-$('#q_fat').addEventListener('input',e=>{const d=e.target.value.replace(/\D/g,'').slice(0,11);e.target.value=d?(+d).toLocaleString('pt-BR'):'';mexeu=true;calc()});
-$('#q_cp').addEventListener('input',()=>{cpManual=true;mexeu=true;calc()});$('#q_cbs').addEventListener('input',()=>{mexeu=true;calc()});
+  if(g.id==='q_seg'){const a=ATV[b.dataset.v];if(!man.cp)$('#q_cp').value=a.cp;if(!man.icms)$('#q_icms').value=a.icms}mexeu=true;calc();track('calc_change')}));
+const mask=e=>{const d=e.target.value.replace(/\D/g,'').slice(0,11);e.target.value=d?(+d).toLocaleString('pt-BR'):''};
+$('#q_fat').addEventListener('input',e=>{mask(e);mexeu=true;calc()});
+$('#q_hoje').addEventListener('input',e=>{mask(e);man.hoje=!!e.target.value;mexeu=true;calc()});
+$('#q_cp').addEventListener('input',()=>{man.cp=true;mexeu=true;calc()});$('#q_icms').addEventListener('input',()=>{man.icms=true;mexeu=true;calc()});$('#q_cbs').addEventListener('input',()=>{mexeu=true;calc()});
 calc();
 
 /* ---------- navegação ---------- */
@@ -62,7 +76,7 @@ $('#leadF').addEventListener('submit',async e=>{e.preventDefault();if($('#hp').v
   const s=mexeu?SIM:null,k=x=>brl(Math.round(x/1000)*1000);
   const fat=s?s.fat:0,pts=Math.min(100,(fat>=3e6?50:fat>=1e6?42:fat>=3e5?28:s?10:20)+({'Sócio ou diretor':30,'Financeiro ou fiscal':25,'Contador externo':12}[papel]||5)+(s&&Math.abs(s.dif)>=1e5?15:5)),tier=pts>=70?'A':pts>=45?'B':'C';
   const prot=new Date().toISOString().slice(2,10).replace(/-/g,'')+'-RE'+Math.random().toString(36).slice(2,5).toUpperCase();
-  const resumo=s?`${s.reg}, ${s.seg}, faturamento ${brl(s.fat)}/mês, compras ~${Math.round(s.cp*100)}%, CBS a ${pc(s.cbs*100)}: ~${k(Math.abs(s.dif))} ${s.mais?'a mais':'a menos'} por ano`:'sem simulação (foi direto ao formulário)';
+  const resumo=s?`${s.reg}, ${s.seg}, faturamento ${brl(s.fat)}/mês, compras ~${Math.round(s.cp*100)}%, ICMS/ISS ${Math.round(s.ic*100)}%, PIS/Cofins hoje ${brl(Math.round(s.hoje))}/mês (${s.real?'informado':'estimado'}), CBS a ${pc(s.cbs*100)}: ~${k(Math.abs(s.dif))} ${s.mais?'a mais':'a menos'} por ano`:'sem simulação (foi direto ao formulário)';
   const lead={nome:n,telefone:t,email:null,area:'Tributário',perfil:'LP real',mensagem:`${resumo}; empresa: ${emp||'não informada'}; contato: ${papel}`,score:pts,faixa:tier,protocolo:prot,idioma:'pt',versao:'lp',utm:store.get('utm',null),pagina:location.href,
    quiz:{papel,empresa:emp||null,...(s?{regime:s.reg,atividade:s.seg,faturamento:s.fat,compras:s.cp,cbs:s.cbs,hoje_mes:Math.round(s.hoje),cbs_mes:Math.round(s.novo),dif_ano:Math.round(s.dif)}:{})},
    consentimento:{lgpd:true,ts:new Date().toISOString(),texto:'v1',pagina:location.pathname}};
