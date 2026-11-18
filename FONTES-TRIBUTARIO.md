@@ -218,4 +218,4 @@ Fonte das regras: **Calculadora de Tributos da Receita Federal**, publicada em c
 | PIS/Cofins hoje: 3,65% (Presumido) e 9,25% com créditos (Real) | Lei 9.718/1998; Leis 10.637/2002 e 10.833/2003 |
 | Mix de vendas do mercado (50% alimentos reduzidos, 15% cesta básica) e crédito sobre as compras na mesma alíquota efetiva | **Premissa nossa**, mostrada ao visitante no resultado |
 
-Quando a alíquota oficial da CBS for fixada, trocar o valor `CBS=.088` em `lp.js` (função `real`).
+O simulador fica em `real.js` (script próprio da `lp-real.html`). O visitante pode ajustar na tela a alíquota da CBS (começa em 8,8%) e a parte do faturamento gasta com compras (começa no valor típico da atividade: indústria 55%, mercado 75%, restaurante 40%, serviços 25%, que são **premissas nossas**). Quando a alíquota oficial for fixada, trocar o valor inicial do controle `q_cbs` na `lp-real.html`.

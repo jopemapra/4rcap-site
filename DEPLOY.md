@@ -78,3 +78,6 @@ O DAS vence no dia 20 e cada pagamento sai do prazo de 5 anos no próprio aniver
    Faça o mesmo com `planilha-feed-AAAA-MM.png` e `planilha-story-AAAA-MM.png` nos anúncios B-planilha (a planilha mostra as 60 competências dentro do prazo, então também muda todo mês).
 3. No texto do anúncio C, avance o mês de "desde nov/2021" (ex.: vira "desde dez/2021"). Se não for possível manter isso todo mês, use "dos últimos 5 anos".
 4. A landing atualiza sozinha (a janela é calculada pela data do visitante).
+
+## 7. Landing Lucro Real e Presumido (lp-real.html)
+Usa o script próprio `real.js`, que tem a sua cópia das configurações (`CFG`, no topo do arquivo): WhatsApp, Supabase, Pixel da Meta e GTM. **Ao mudar qualquer um deles no `lp.js`, mude também no `real.js`.**
