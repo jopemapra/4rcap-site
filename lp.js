@@ -3,7 +3,7 @@
    Este arquivo é compartilhado por lp-tributario, lp2-tributario, lp-leilao, lp-investimentos e lp-empresarial:
    tudo que é específico de uma página fica condicionado a S==='trib' ou à existência do elemento. */
 const LP_CONFIG={ // use os MESMOS valores do CONFIG em app.js
-  marca:'Gera Caixa', whatsapp:'5500000000000', cnpj:'46.131.513/0001-32',
+  marca:'Gera Caixa', whatsapp:'5511943787719', cnpj:'46.131.513/0001-32',
   waParceiro:'', // WhatsApp separado para contadores (opcional; vazio = usa o principal)
   supabaseUrl:'', supabaseAnonKey:'',
   gtmId:'', metaPixelId:'', // ex.: 'GTM-XXXXXXX' / '123456789012345'; vazios = nada é carregado

@@ -2,7 +2,7 @@
 const CONFIG={
   marca:'Gera Caixa',                  // marca: Gera Caixa (trocada em 18/11/2026)
   cnpj:'46.131.513/0001-32',
-  whatsapp:'5500000000000',       // DDI+DDD+número, só dígitos
+  whatsapp:'5511943787719',       // DDI+DDD+número, só dígitos
   telefone:'(00) 00000-0000',
   email:'contato@suamarca.com.br',
   // Assessoria de investimentos (Res. CVM 178/2023): o vínculo com o intermediário deve aparecer de forma clara
