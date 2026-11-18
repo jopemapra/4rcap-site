@@ -106,3 +106,5 @@ Conta de anúncios "Gera Caixa" (`act_1396977758541254`), Página "Gera Caixa" (
 - Imagens já na biblioteca (hash): R1 `220704dc626a950cc60feedf1ff0ee68`, R2 `1ac94225ad2166b4acf517cee74f3159`, R3 `a4fcc22a810b988cae71e61de34c0adc`, R4 `69c29335a42d60f41eb5ac9954900ca7`.
 
 Pendências na Meta: forma de pagamento; vincular o WhatsApp Business à Página; vincular a conta do Instagram à Página; refinar o público por cargos e interesses.
+
+**Medição e trava de gasto (18/11/2026):** Pixel "Gera Caixa · site" `1122691790655912` já está no `lp.js` (PageView e Lead). Teto de gasto de R$ 500 em cada campanha (a Meta para sozinha ao atingir). Prévia privada da landing: https://claude.ai/artifact/SGH3JK4QUs2TpGvCw5LwbE

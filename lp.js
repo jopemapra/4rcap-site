@@ -6,7 +6,7 @@ const LP_CONFIG={ // use os MESMOS valores do CONFIG em app.js
   marca:'Gera Caixa', whatsapp:'5511943787719', cnpj:'46.131.513/0001-32',
   waParceiro:'', // WhatsApp separado para contadores (opcional; vazio = usa o principal)
   supabaseUrl:'', supabaseAnonKey:'',
-  gtmId:'', metaPixelId:'', // ex.: 'GTM-XXXXXXX' / '123456789012345'; vazios = nada é carregado
+  gtmId:'', metaPixelId:'1122691790655912', // ex.: 'GTM-XXXXXXX' / '123456789012345'; vazios = nada é carregado
   gadsConversion:'', // conversão do Google Ads, ex.: 'AW-123456789/AbCdEfGh'; só é enviada se window.gtag existir
   assessor:'Seu Nome', credencial:'ANCORD nº 00000', intermediario:'NOME DA CORRETORA S.A.'};
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
